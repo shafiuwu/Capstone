@@ -1,0 +1,96 @@
+.header {
+    background-image: url('../../public/images/header.png'); /* Ruta */
+    background-size: cover; /* Para que cubra todo el header */
+    height: 850px;
+    color: white; /* Color del texto */
+    position: relative; /* Posición relativa para que los elementos absolutos se posicionen correctamente */
+}
+
+.overlay {
+    position: absolute; /* Posiciona el overlay encima de la imagen */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.35); /* Color negro con equis % de opacidad */
+    z-index: 1; /* Asegura que el overlay esté por encima de la imagen */
+}
+
+.navbar {
+    position: relative;
+    top: 0; /* Para que siempre esté arriba */
+    z-index: 10; /* Mucho más alto que el overlay */
+}
+
+.custom-navbar {
+    height: 100px; /* Ajusta la altura como desees */
+    display: flex; /* Asegura que el contenido se alinee adecuadamente */
+    align-items: center; /* Centra verticalmente el contenido */
+    border: none;
+}
+
+.header .navbar {
+    font-size: 24px;
+    color: white !important;
+}
+
+.header-content {
+    z-index: 2;
+    position: absolute; /* Posiciona el contenido encima de la imagen de fondo */
+    top: 50%; /* Centra verticalmente el contenido */
+    left: 20px; /* Ajusta la distancia desde el lado izquierdo */
+    transform: translateY(-50%); /* Ajuste para centrar verticalmente */
+    color: white; /* Color del texto */
+    text-align: left; /* Alinea el texto a la izquierda */
+    margin-left: 50px;
+}
+
+.header-title {
+    font-size: 100px; /* Tamaño del título */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+
+.header-slogan {
+    font-size: 30px; /* Tamaño del eslogan */
+    margin: 10px 0; /* Espaciado entre el eslogan y el botón */
+}
+
+.boton-header {
+    margin-top: 20px; /* Espaciado arriba del botón */
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 20px;
+}
+
+.espacio {
+    margin-right: 20px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px; /* Oculta el menú lateral inicialmente */
+    width: 250px; /* Ancho del menú lateral */
+    height: 50%;
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco con un poco de transparencia */
+    transition: right 0.3s ease; /* Transición suave al abrir/cerrar */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.sidebar.active {
+    right: 0; /* Mueve el menú lateral a la vista */
+}
+
+.sidebar a {
+    font-size: 24px !important;
+    display: block; /* Cada enlace ocupa una línea completa */
+    padding: 15px; /* Espaciado en los enlaces */
+    color: black; /* Color del texto */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.sidebar a:hover {
+    background: #f0f0f0; /* Color de fondo al pasar el mouse */
+}
