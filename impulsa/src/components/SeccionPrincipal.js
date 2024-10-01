@@ -12,6 +12,7 @@ const SeccionPrincipal = () => {
         <img src="/images/logo2.png" alt="undraw-Community-pana" border="0" />
       </div>
     </section>
+
   );
 };
 

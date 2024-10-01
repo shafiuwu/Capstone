@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
 
@@ -52,9 +53,8 @@ const Header = () => {
             </div>
             {/* Menú lateral que se activa */}
             <div className={`sidebar ${isMenuOpen ? 'active' : ''}`} ref={menuRef}>
-                <a href="#">Enlace 1</a>
-                <a href="#">Enlace 2</a>
-                <a href="#">Enlace 3</a>
+                <Link to="/login">Login</Link>
+                <Link to="/registro">Registro</Link>
             </div>   
         </header>
           

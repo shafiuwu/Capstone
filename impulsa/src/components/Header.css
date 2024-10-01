@@ -6,6 +6,25 @@
     position: relative; /* Posición relativa para que los elementos absolutos se posicionen correctamente */
 }
 
+/* Para pantallas medianas y pequeñas, reduce la altura del header */
+@media (max-width: 992px) {
+    .header {
+      height: 600px;
+    }
+}
+  
+@media (max-width: 768px) {
+    .header {
+      height: 400px;
+    }
+}
+  
+@media (max-width: 576px) {
+    .header {
+      height: 300px;
+    }
+}
+
 .overlay {
     position: absolute; /* Posiciona el overlay encima de la imagen */
     top: 0;
@@ -28,6 +47,7 @@
     align-items: center; /* Centra verticalmente el contenido */
     border: none;
 }
+
 
 .header .navbar {
     font-size: 24px;
