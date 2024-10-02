@@ -1,5 +1,5 @@
 .header {
-    background-image: url('../../public/images/header.png'); /* Ruta */
+    background-image: url('../../../public/images/header.png'); /* Ruta */
     background-size: cover; /* Para que cubra todo el header */
     height: 850px;
     color: white; /* Color del texto */
