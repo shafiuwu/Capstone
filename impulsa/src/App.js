@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import Login from './pages/Login/Login';
 import Registro from './pages/Registro/Registro';
-import HomePage from './pages/HomePage/HomePage';  // Importa tu nueva página principal
+import HomePage from './pages/HomePage/HomePage'; 
+import RegistroOrg from './pages/Organizacion/RegistroOrg';
 
 
 function App() {
@@ -19,6 +20,9 @@ function App() {
 
           {/* Ruta para la página de registro */}
           <Route path="/registro" element={<Registro />} />
+
+          {/* Ruta para la página de registro de organización */}
+          <Route path="/registro-organizacion" element={<RegistroOrg />} />
         </Routes>
     </Router>
   );

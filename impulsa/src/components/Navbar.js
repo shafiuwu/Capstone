@@ -42,6 +42,7 @@ const Navbar = () => {
             <div className={`sidebar ${isMenuOpen ? 'active' : ''}`} ref={menuRef}>
                 <Link to="/login">Login</Link>
                 <Link to="/registro">Registro</Link>
+                <Link to="/registro-organizacion">Registro de organización</Link>
             </div>
         </nav>
     );

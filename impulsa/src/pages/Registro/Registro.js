@@ -61,7 +61,7 @@ const RegisterPage = () => {
                         ¿Ya tienes una cuenta? <a href="#!" style={{ color: "#393f81;" }}>Inicia sesión aquí</a>
                       </p>
                       <p className="mb-5 pb-lg-2" style={{ color: "#393f81;" }}>
-                        ¿Quieres registrarte como organización? <a href="#!" style={{ color: "#393f81;" }}>Completa este formulario</a>
+                        ¿Quieres registrarte como organización? <a href="/registro-organizacion" style={{ color: "#393f81;" }}>Completa este formulario</a>
                       </p>
                   </form>
                   </div>
