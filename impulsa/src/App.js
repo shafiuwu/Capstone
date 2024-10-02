@@ -6,6 +6,7 @@ import Login from './pages/Login/Login';
 import Registro from './pages/Registro/Registro';
 import HomePage from './pages/HomePage/HomePage'; 
 import RegistroOrg from './pages/Organizacion/RegistroOrg';
+import Actividad from './pages/Organizacion/Actividad';
 
 
 function App() {
@@ -23,6 +24,9 @@ function App() {
 
           {/* Ruta para la página de registro de organización */}
           <Route path="/registro-organizacion" element={<RegistroOrg />} />
+            
+          {/* Ruta para la página de agregar actividad */}
+          <Route path="/agregar-actividad" element={<Actividad />} />
         </Routes>
     </Router>
   );
