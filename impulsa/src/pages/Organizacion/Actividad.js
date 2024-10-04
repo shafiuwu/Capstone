@@ -3,8 +3,9 @@ import Navbar from "../../components/Navbar";
 
 const AgregarOportunidad = () => {
     return (
+      <div>
+      <Navbar />
       <div className="container mt-5">
-        <Navbar />
         <h2 className="mb-4 text-center">Agregar Oportunidad de Voluntariado</h2>
         <form>
           <div className="mb-3">
@@ -45,6 +46,7 @@ const AgregarOportunidad = () => {
             <button type="submit" className="btn btn-primary">Agregar Oportunidad</button>
           </div>
         </form>
+      </div>
       </div>
     );
   };

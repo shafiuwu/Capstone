@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/Navbar';
 
-const LoginPage = () => {
+const LoginOrg = () => {
   return (
     <div>
       <Navbar />
@@ -28,7 +28,10 @@ const LoginPage = () => {
                         <img className='logo' src="/images/logo2.png" alt="logo"
                         style={{"width":"35px", "height":"35px"}}/>
                         <span class="fs-1 fw-light mb-0 font-italic" style={{"paddingLeft": "10px"}}>Impulsa</span>
+                        <span class="fs-5 fw-light mb-0 font-italic" style={{"paddingLeft": "10px", paddingTop: "18px"}}>colaboradores</span>
                       </div>
+
+
                       <div data-mdb-input-init class="form-outline mb-4">
                         <input type="email" id="form2Example17" class="form-control form-control-lg" />
                         <label class="form-label" for="form2Example17">Email</label>
@@ -65,4 +68,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default LoginOrg;

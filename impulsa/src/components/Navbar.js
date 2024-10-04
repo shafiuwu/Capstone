@@ -44,6 +44,7 @@ const Navbar = () => {
                 <Link to="/registro">Registro</Link>
                 <Link to="/registro-organizacion">Registro de organización</Link>
                 <Link to="/agregar-actividad">Actividad</Link>
+                <Link to="/login-organizacion">Login de organización</Link>
             </div>
         </nav>
     );
