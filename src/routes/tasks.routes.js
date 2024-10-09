@@ -10,6 +10,9 @@ const {
 const router = Router();
 const multer = require('multer');
 const path = require('path');
+const {
+    authOrganizacionMiddleware
+} = require('../middlewares/authMiddleware');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {

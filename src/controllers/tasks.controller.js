@@ -41,7 +41,7 @@ const crearActividad = async (req, res) => {
     } = req.body;
 
     const id = uuidv4();
-    const imagenes = []
+    let imagenes = []
 
     if (req.files) {
         imagenes = req.files.map(file => file.filename); // Obtener los nombres de los archivos
@@ -63,7 +63,7 @@ const crearActividad = async (req, res) => {
             ]
         );
 
-        console.log(datos);
+        console.log(datos.rows);
         res.status(201).send('Actividad creada correctamente');
     } catch (error) {
         console.log(error);

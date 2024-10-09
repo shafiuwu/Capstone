@@ -41,7 +41,8 @@ const authOrganizacionMiddleware = (req, res, next) => {
         }
 
         req.organizacion = {
-            id: decoded.id,       
+            id: decoded.id,  
+            rol_id: decoded.rol_id     
         };
  
         console.log('ID de la organizacion:', req.organizacion);
@@ -58,9 +59,7 @@ const verificarAdmin = (req, res, next) => {
 };
 
 
-
-
-module.exports = {
+module.exports = {  
     authVoluntarioMiddleware,
     authOrganizacionMiddleware,
     verificarAdmin
