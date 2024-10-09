@@ -17,11 +17,10 @@ const LoginPage = () => {
       }, { withCredentials: true });
 
       if (response.status === 200) {
-        // Redirigir al perfil del voluntario
-        navigate('/perfil'); // Cambia la ruta según donde quieras redirigir
+
+        navigate('/perfil'); 
       }
     } catch (err) {
-      // Captura el error y establece el mensaje
       setError(err.response?.data?.message || 'Error en el inicio de sesión');
     }
   };

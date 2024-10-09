@@ -8,7 +8,8 @@ import HomePage from './pages/HomePage/HomePage';
 import RegistroOrg from './pages/Organizacion/RegistroOrg';
 import Actividad from './pages/Organizacion/Actividad';
 import LoginOrg from './pages/Organizacion/LoginOrg';
-import PerfilVoluntario from './pages/Perfil/PerfilVoluntario'; // Importa el componente del perfil del voluntario
+import PerfilVoluntario from './pages/Perfil/PerfilVoluntario';
+import ProtectedRoutes from './components/ProtectedRoutes'; // Importa el componente de rutas protegidas
 
 function App() {
   return (
@@ -23,14 +24,15 @@ function App() {
         {/* Ruta para la página de registro */}
         <Route path="/registro" element={<Registro />} />
 
-          {/* Ruta para la página de registro de organización */}
-          <Route path="/registro-organizacion" element={<RegistroOrg />} />
-            
-          {/* Ruta para la página de agregar actividad */}
-          <Route path="/agregar-actividad" element={<Actividad />} />
+        {/* Ruta para la página de registro de organización */}
+        <Route path="/registro-organizacion" element={<RegistroOrg />} />
+        
+        {/* Ruta protegida para agregar actividad */}
+        <Route path="/agregar-actividad" element={<ProtectedRoutes allowedRole={3} element={<Actividad />} />} />
 
-          {/* Ruta para la página de login de organización */}
-          <Route path="/login-organizacion" element={<LoginOrg />} />
+
+        {/* Ruta para la página de login de organización */}
+        <Route path="/login-organizacion" element={<LoginOrg />} />
 
         {/* Ruta para la página del perfil del voluntario */}
         <Route path="/perfil" element={<PerfilVoluntario />} /> 
