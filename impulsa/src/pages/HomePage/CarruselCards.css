@@ -1,0 +1,44 @@
+.carrusel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden; /* Oculta las cards que están fuera del contenedor */
+    width: 100%; /* Ajusta según necesites */
+}
+
+.carrusel-cards {
+    display: flex;
+    transition: transform 0.5s ease; /* Suaviza la transición */
+}
+
+.card3 {
+    min-width: 250px; /* Ajusta el ancho mínimo de las cards */
+    margin: 0 10px; /* Espaciado entre cards */
+    transition: transform 0.3s ease;
+    opacity: 0.5; /* Cards desactivadas son más transparentes */
+}
+
+.card3.active {
+    transform: scale(1.1); /* Aumenta el tamaño de la card activa */
+    opacity: 1; /* La card activa es completamente opaca */
+}
+
+.carrusel-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px; /* Ajusta el tamaño del ícono */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10; /* Asegura que los botones estén encima */
+}
+
+.carrusel-button.left {
+    left: 10px; /* Ajusta la posición izquierda */
+}
+
+.carrusel-button.right {
+    right: 10px; /* Ajusta la posición derecha */
+}

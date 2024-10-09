@@ -1,0 +1,53 @@
+.wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    background-color: #f5f5f5;
+}
+  
+/* We tell all items to be 100% width, via flex-basis */
+.wrapper > * {
+    flex: 1 100%;
+}
+
+.card1 {
+    width: 500px;
+    height: 400px;
+    margin: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.card1 img {
+    width: 300px;
+    height: 200px;
+    border-radius: 2px;
+}
+
+.texto-card1 {
+    font-size: 1.5rem;
+    font-weight: 450;
+    color: #6d6a6a;
+    margin: 30px;
+    padding: 0px 300px 0px 300px;
+}
+
+.boton1 {
+    display: inline-block;
+    width: 260px;
+    padding: 10px 20px;
+    margin: 0px 10px 50px 10px;
+    font-size: 21px;
+    font-weight: 500;
+    color: black;
+    background-color: #b3b7bd;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+}
+
+.boton1:hover {
+    background-color: #d3d3d3;
+}
