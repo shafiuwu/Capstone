@@ -69,6 +69,19 @@ const LoginPage = () => {
                           />
                           <label className="form-label" htmlFor="form2Example17">Email</label>
                         </div>
+                  
+                <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                  <div class="card-body p-4 p-lg-5 text-black">
+                    <form>
+                      <div class="d-flex align-items-center mb-3 pb-1">
+                        <img className='logo' src="/images/logo2.png" alt="logo"
+                        style={{"width":"35px", "height":"35px"}}/>
+                        <span class="fs-1 fw-light mb-0 font-italic" style={{"paddingLeft": "10px"}}>Impulsa</span>
+                      </div>
+                      <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="email" id="form2Example17" class="form-control form-control-lg" />
+                        <label class="form-label" for="form2Example17">Email</label>
+                      </div>
 
                         <div className="form-outline mb-4">
                           <input
