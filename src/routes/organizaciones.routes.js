@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const db = require('../db');
 
+const { authOrganizacionMiddleware } = require('../middlewares/AuthMiddleware')
 const { 
     obtenerOrganizaciones, 
     obtenerOrganizacion,
@@ -8,14 +9,28 @@ const {
     borrarOrganizacion, 
     actualizarOrganizacion,
     loginOrganizacion,
+    perfilOrganizacion
 } = require('../controllers/organizaciones.controller');
 
 const router = Router();
+const multer = require('multer');
+const path = require('path'); 
 
-// Rutas de organizaciones
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, path.join(__dirname, '../uploads')); // Asegúrate de que la ruta es correcta
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname); // Guarda el archivo con un nombre único
+    }
+});
+
+const upload = multer({ storage: storage });
+
+router.get('/organizaciones/perfil', authOrganizacionMiddleware, perfilOrganizacion);
 router.get('/organizaciones', obtenerOrganizaciones);
 router.get('/organizaciones/:id', obtenerOrganizacion);
-router.post('/organizaciones', crearOrganizacion);
+router.post('/organizaciones', upload.single('foto_empresa'), crearOrganizacion);
 router.post('/organizaciones/login', loginOrganizacion);
 router.delete('/organizaciones/:id', borrarOrganizacion);
 router.put('/organizaciones/:id', actualizarOrganizacion);

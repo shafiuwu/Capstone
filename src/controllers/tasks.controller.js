@@ -1,4 +1,5 @@
 const db = require('../db')
+const { v4: uuidv4 } = require('uuid');
 
 const obtenerDatos =  async(req, res) => {
     try{
@@ -36,14 +37,21 @@ const crearActividad = async (req, res) => {
         requisitos,
         fecha_inicio,
         fecha_fin,
-        descripcion,
-        imagenes
+        descripcion
     } = req.body;
+
+    const id = uuidv4();
+    const imagenes = []
+
+    if (req.files) {
+        imagenes = req.files.map(file => file.filename); // Obtener los nombres de los archivos
+    }
 
     try {
         const datos = await db.query(
-            "INSERT INTO actividades (nombre_actividad, organizacion_a_cargo, direccion, requisitos, fecha_inicio, fecha_fin, descripcion, imagenes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+            "INSERT INTO actividades (id, nombre_actividad, organizacion_a_cargo, direccion, requisitos, fecha_inicio, fecha_fin, descripcion, imagenes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
             [
+                id,
                 nombre_actividad,
                 organizacion_a_cargo,
                 direccion,
@@ -51,16 +59,19 @@ const crearActividad = async (req, res) => {
                 fecha_inicio,
                 fecha_fin,
                 descripcion,
-                imagenes
+                imagenes // Se guarda un array de nombres de archivos
             ]
         );
 
         console.log(datos);
         res.status(201).send('Actividad creada correctamente');
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        res.status(500).send('Error al crear la actividad');
     }
 };
+
+
 
 
 const borrarActividad = async (req, res) => {

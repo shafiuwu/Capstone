@@ -1,7 +1,9 @@
 const db = require('../db');
 const config = require ('../config')
+const index = require('../index')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { v4: uuidv4 } = require('uuid');
 
 
 const obtenerOrganizaciones = async (req, res, next) => {
@@ -36,23 +38,35 @@ const crearOrganizacion = async (req, res, next) => {
         nombre,
         tipo_organizacion,
         contacto_email,
-        contraseña,
+        contrasena,
         contacto_telefono,
         descripcion
     } = req.body;
 
+    const foto_empresa = req.file ? req.file.filename : null; 
+
+
     try {
+        if (!contrasena) {
+            return res.status(400).json({ error: 'La contraseña es obligatoria.' });
+        }
+        
+        const id = uuidv4();
         const salt = await bcrypt.genSalt(10);
-        const contraseñaEncriptada = await bcrypt.hash(contraseña, salt);
+        const contrasenaEncriptada = await bcrypt.hash(contrasena, salt);
+
         const datos = await db.query(
-            "INSERT INTO empresa (nombre, tipo_organizacion, contacto_email, \"contraseña\", contacto_telefono, descripcion) VALUES ($1, $2, $3, $4, $5, $6)",
+            "INSERT INTO empresa (id, nombre, tipo_organizacion, contacto_email, contrasena, contacto_telefono, descripcion, foto_empresa) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
             [
+                id,
                 nombre,
                 tipo_organizacion,
                 contacto_email,
-                contraseñaEncriptada,
+                contrasenaEncriptada,
                 contacto_telefono,
                 descripcion,
+                foto_empresa
+
             ]
         );
 
@@ -130,39 +144,58 @@ const actualizarOrganizacion = async (req, res, next) => {
 };
 
 const loginOrganizacion = async (req, res, next) => {
-    const { correo, contraseña } = req.body;
+    const { correo, contrasena } = req.body;
 
     try {
-        // Consulta para obtener la empresa por correo
         const resultado = await db.query('SELECT * FROM empresa WHERE contacto_email = $1', [correo]);
 
-        // Verifica si la empresa fue encontrada
         if (resultado.rows.length === 0) {
             return res.status(404).json({ message: 'Empresa no encontrada' });
         }
 
         const empresa = resultado.rows[0];
 
-        // Verifica la contraseña ingresada
-        const esContraseñaValida = await bcrypt.compare(contraseña, empresa.contraseña);
+        const esContraseñaValida = await bcrypt.compare(contrasena, empresa.contrasena);
 
         if (!esContraseñaValida) {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
 
-        // Genera un token JWT
-        const token = jwt.sign({ id: empresa.id }, config.secretTokenKey, { expiresIn: '1h' });
+        const token = jwt.sign({ id: empresa.id, rol_id: empresa.rol_id }, config.secretTokenKey, { expiresIn: '1h' });
+        
+        res.cookie('tokenAccesoEmpresa', token, {
+            maxAge: 3600000
+        }).send(token);
 
-        // Responde con el mensaje y el token
-        res.status(200).json({ 
-            message: 'Inicio de sesión exitoso', 
-            token 
-        });
     } catch (error) {
         console.log(error);
-        next(error); // Pasa el error al manejador de errores
+        next(error);
     }
 };
+
+const perfilOrganizacion = async (req, res, next) => {
+    const organizacionId = req.organizacion.id;
+    console.log('ID del organizacion para la consulta:', organizacionId);
+
+    try {
+        const resultado = await db.query(
+            'SELECT * FROM empresa WHERE id = $1',
+            [organizacionId]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({ message: 'Organizacion no encontrada.' });
+        }
+
+        res.status(200).json(resultado.rows[0]);
+    } catch (error) {
+        console.error('Error en la consulta:', error);
+        res.status(500).json({ message: 'Error en la consulta a la base de datos.' });
+    }
+};
+
+
+
 
 module.exports = {
     obtenerOrganizaciones,
@@ -170,5 +203,6 @@ module.exports = {
     crearOrganizacion,
     borrarOrganizacion,
     actualizarOrganizacion,
-    loginOrganizacion
+    loginOrganizacion,
+    perfilOrganizacion
 };
