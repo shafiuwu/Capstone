@@ -32,7 +32,7 @@ router.get('/organizaciones', obtenerOrganizaciones);
 router.get('/organizaciones/:id', obtenerOrganizacion);
 router.post('/organizaciones', upload.single('foto_empresa'), crearOrganizacion);
 router.post('/organizaciones/login', loginOrganizacion);
-router.delete('/organizaciones/:id', borrarOrganizacion);
-router.put('/organizaciones/:id', actualizarOrganizacion);
+router.delete('/organizacion', authOrganizacionMiddleware, borrarOrganizacion);
+router.put('/organizaciones/:id', authOrganizacionMiddleware, actualizarOrganizacion);
 
 module.exports = router;

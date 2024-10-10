@@ -80,8 +80,8 @@ const crearOrganizacion = async (req, res, next) => {
 
 const borrarOrganizacion = async (req, res, next) => {
     try {
-        const { id } = req.params; 
-        const resultado = await db.query('DELETE FROM empresa WHERE id = $1', [id]); 
+        const organizacionId = req.organizacion.id;
+        const resultado = await db.query('DELETE FROM empresa WHERE id = $1', [organizacionId]); 
 
         if (resultado.rowCount === 0) {
             return res.status(404).json({ 
@@ -90,16 +90,15 @@ const borrarOrganizacion = async (req, res, next) => {
         }
         return res.status(200).json({
             message: 'Organización eliminada correctamente',
-            id: id
+            id: organizacionId
         });
-        console.log(resultado);
     } catch (error) {
         next(error);
     }
 };
 
 const actualizarOrganizacion = async (req, res, next) => {
-    const { id } = req.params;
+    const organizacionId = req.organizacion.id;
     const {
         nombre,
         tipo_organizacion,
@@ -124,7 +123,7 @@ const actualizarOrganizacion = async (req, res, next) => {
                 contacto_email,
                 contacto_telefono,
                 descripcion,
-                id
+                organizacionId
             ]
         );
 

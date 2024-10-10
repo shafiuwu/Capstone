@@ -36,8 +36,8 @@ router.get('/voluntarios', obtenerVoluntarios);
 router.get('/voluntarios/:id', obtenerVoluntario)
 router.post('/voluntarios', upload.single('foto_perfil'), registroVoluntario);
 router.post('/voluntarios/login', loginVoluntario)
-router.delete('/voluntarios/:id', borrarVoluntario);
-router.put('/voluntarios/:id', actualizarVoluntario);
+router.delete('/voluntario', authVoluntarioMiddleware, borrarVoluntario);
+router.put('/voluntarios', authVoluntarioMiddleware, actualizarVoluntario);
 
 
 

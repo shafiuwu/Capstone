@@ -80,8 +80,8 @@ const registroVoluntario = async (req, res, next) => {
 
 const borrarVoluntario = async (req, res, next) => {
     try {
-        const { id } = req.params;
-        const resultado = await db.query('DELETE FROM voluntarios WHERE id = $1', [id]);
+        const usuarioId = req.voluntario.id;
+        const resultado = await db.query('DELETE FROM voluntarios WHERE id = $1', [usuarioId]);
 
         if (resultado.rowCount === 0) {
             return res.status(404).json({
@@ -91,7 +91,7 @@ const borrarVoluntario = async (req, res, next) => {
 
         return res.status(200).json({
             message: 'Voluntario eliminado correctamente',
-            id: id
+            id: usuarioId
         });
     } catch (error) {
         next(error);
@@ -99,12 +99,13 @@ const borrarVoluntario = async (req, res, next) => {
 };
 
 const actualizarVoluntario = async (req, res, next) => {
-    const { id } = req.params;
+    const usuarioId = req.voluntario.id;
+
     const {
         nombre,
         apellido,
         correo,
-        contraseña,
+        contraseña,  // Aquí es donde posiblemente se encripte
         telefono,
         fecha_nacimiento,
         direccion,
@@ -114,13 +115,22 @@ const actualizarVoluntario = async (req, res, next) => {
     } = req.body;
 
     try {
+        // Si se ha enviado una nueva contraseña, encriptarla
+        let contraseñaEncriptada = contraseña;
+
+        if (contraseña) {
+            const salt = await bcrypt.genSalt(10); // Número de rondas de salt
+            contraseñaEncriptada = await bcrypt.hash(contraseña, salt);
+        }
+
+        // Actualizar los datos del voluntario, incluyendo la contraseña encriptada si fue cambiada
         const resultado = await db.query(
             `UPDATE voluntarios
             SET 
                 nombre = $1,
                 apellido = $2,
                 correo = $3,
-                contraseña = $4,
+                contraseña = $4,  -- Contraseña encriptada
                 telefono = $5,
                 fecha_nacimiento = $6,
                 direccion = $7,
@@ -132,14 +142,14 @@ const actualizarVoluntario = async (req, res, next) => {
                 nombre,
                 apellido,
                 correo,
-                contraseña,
+                contraseñaEncriptada,  // Aquí se usa la contraseña encriptada
                 telefono,
                 fecha_nacimiento,
                 direccion,
                 habilidades,
                 foto_perfil,
                 estado,
-                id 
+                usuarioId
             ]
         );
 
@@ -156,6 +166,7 @@ const actualizarVoluntario = async (req, res, next) => {
         next(error);
     }
 };
+
 
 const loginVoluntario = async (req, res, next) => {
     const { correo, contraseña } = req.body;
