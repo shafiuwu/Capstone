@@ -14,7 +14,7 @@ const ProtectedRoutes = ({ allowedRole, element }) => {
         const decodedToken = jwtDecode(token);
 
         if (decodedToken.rol_id === allowedRole) {
-            return element; // Renderiza el componente directamente
+            return element;
         } else {
             return <Navigate to="/no-autorizado" />;
         }

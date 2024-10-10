@@ -18,7 +18,7 @@ const LoginOrg = () => {
 
       if (response.status === 200) {
 
-        navigate('/'); 
+        navigate('/perfil-organizacion'); 
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Error en el inicio de sesión');

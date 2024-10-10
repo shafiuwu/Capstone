@@ -9,7 +9,9 @@ import RegistroOrg from './pages/Organizacion/RegistroOrg';
 import Actividad from './pages/Organizacion/Actividad';
 import LoginOrg from './pages/Organizacion/LoginOrg';
 import PerfilVoluntario from './pages/Perfil/PerfilVoluntario';
-import ProtectedRoutes from './components/ProtectedRoutes'; // Importa el componente de rutas protegidas
+import ProtectedRoutes from './components/ProtectedRoutes'; 
+import PerfilOrganizacion from './pages/Organizacion/PerfilOrganizacion';
+
 
 function App() {
   return (
@@ -36,6 +38,10 @@ function App() {
 
         {/* Ruta para la página del perfil del voluntario */}
         <Route path="/perfil" element={<PerfilVoluntario />} /> 
+
+        {/* Ruta para la página del perfil del voluntario */}
+        <Route path="/perfil-organizacion" element={<PerfilOrganizacion />} /> 
+
       </Routes>
     </Router>
   );
