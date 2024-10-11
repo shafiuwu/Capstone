@@ -6,12 +6,12 @@ const Card1 = () => {
         <div className="wrapper">
             <div class="row justify-content-center">
                 <div class="card1">
-                    <h1 class="card-title">Zona Sur</h1>
-                    <img src="..." class="card-img-top" alt="..."></img>
+                    <h1>Zona Sur</h1>
+                    <img src="/images/sur.jpg" class="card-img-top" alt="..."></img>
                 </div>
                 <div class="card1">
-                    <h1 class="card-title">Zona Norte</h1>
-                    <img src="..." class="card-img-top" alt="..."></img>
+                    <h1>Zona Norte</h1>
+                    <img src="/images/norte.jpg" class="card-img-top" alt="..."></img>
                 </div>
             </div>
             <div class="row justify-content-center">

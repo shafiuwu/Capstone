@@ -3,17 +3,15 @@ import Header from '../HomePage/Header';
 import SeccionPrincipal from './SeccionPrincipal';
 import Card1 from './Card1';
 import Destacados from './Destacados';
-import CarruselCards from './CarruselCards';
 import Footer from '../../components/Footer';
 
 function HomePage() {
   return (
-    <div>
+    <div style={{backgroundColor: "#f5f5f5"}}>
       <Header />
       <SeccionPrincipal />
       <Card1 />
       <Destacados />
-      <CarruselCards />
       <Footer />
     </div>
   );

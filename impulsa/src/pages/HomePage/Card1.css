@@ -10,27 +10,30 @@
 }
 
 .card1 {
-    width: 500px;
-    height: 400px;
+    width: 600px;
+    height: 500px;
     margin: 10px;
     padding: 20px;
     background-color: #f9f9f9;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
     border: none;
+    text-align: center;
 }
 
 .card1 img {
-    width: 300px;
-    height: 200px;
+    margin-top: 40px;
+    width: 500px;
+    height: 350px;
     border-radius: 2px;
 }
 
 .texto-card1 {
     font-size: 1.5rem;
     font-weight: 450;
-    color: #6d6a6a;
+    color: #383636;
     margin: 30px;
     padding: 0px 300px 0px 300px;
+    text-align: center;
 }
 
 .boton1 {
