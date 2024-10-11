@@ -28,6 +28,7 @@ const Navbar = () => {
             <div className="container-fluid">
                 <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="navbarNavAltMarkup">
                     <div className="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style={{ "--bs-scroll-height": "100px" }}>
+                        <Link to="/" className="nav-link actives espacio fs-3 fw-light text-body-emphasis" aria-current="page">Inicio</Link>
                         <a className="nav-link actives espacio fs-3 fw-light text-body-emphasis" aria-current="page" href="#">Nosotros</a>
                         <a className="nav-link espacio fs-3 fw-light text-body-emphasis" href="#">Misión</a>
                         <a className="nav-link espacio fs-3 fw-light text-body-emphasis" href="#">Voluntariados</a>

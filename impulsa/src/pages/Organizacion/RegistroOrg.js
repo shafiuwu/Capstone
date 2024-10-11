@@ -115,7 +115,7 @@ const RegistroOrg = () => {
                       <button type="submit" className="btn btn-dark btn-lg btn-block">Registrarse</button>
                     </div>
                     <p className="mb-5 pb-lg-2" style={{ color: "#393f81;" }}>
-                      ¿Ya tienes una cuenta? <a href="/login" style={{ color: "#393f81;" }}>Inicia sesión</a>
+                      ¿Ya tienes una cuenta? <a href="/login-organizacion" style={{ color: "#393f81;" }}>Inicia sesión</a>
                     </p>
                   </form>
                 </div>

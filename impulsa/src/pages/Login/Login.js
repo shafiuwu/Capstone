@@ -35,7 +35,7 @@ const LoginPage = () => {
               <div className="card" style={{ borderRadius: '1rem' }}>
                 <div className="row g-0">
                   <div className="col-md-6 col-lg-5 d-none d-md-block">
-                    <img src="/images/descarga.jpg" alt="login form" className="img-fluid"
+                    <img src="/images/card2.jpg" alt="login form" className="img-fluid"
                       style={{
                         borderRadius: '1rem 0 0 1rem',
                         width: '100%',
@@ -89,7 +89,7 @@ const LoginPage = () => {
                         <br />
                         <br />
                         <p className="mb-5 pb-lg-2" style={{ color: '#393f81' }}>
-                          Aún no eres parte de Impulsa? 
+                          Aún no eres parte de Impulsa?<span>  </span> 
                           <a href="/registro" style={{ color: '#393f81' }}>Regístrate acá!</a>
                         </p>
                       </form>
