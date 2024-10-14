@@ -8,7 +8,7 @@ import HomePage from './pages/HomePage/HomePage';
 import RegistroOrg from './pages/Organizacion/RegistroOrg';
 import Actividad from './pages/Organizacion/Actividad';
 import LoginOrg from './pages/Organizacion/LoginOrg';
-import PerfilVoluntario from './pages/Perfil/PerfilVoluntario';
+import PerfilVoluntario from './pages/perfil/PerfilVoluntario';
 import ProtectedRoutes from './components/ProtectedRoutes'; 
 import PerfilOrganizacion from './pages/Organizacion/PerfilOrganizacion';
 

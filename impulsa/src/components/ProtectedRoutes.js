@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode'; // Asegúrate de no usar llaves en jwtDecode
+import {jwtDecode} from 'jwt-decode';
 import Cookies from 'js-cookie';
 
 const ProtectedRoutes = ({ allowedRole, element }) => {

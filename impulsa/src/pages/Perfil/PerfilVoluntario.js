@@ -7,6 +7,20 @@ const PerfilVoluntario = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const formatearFecha = (fecha) => {
+    const fechaObj = new Date(fecha);
+    return fechaObj.toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric'
+    });
+  };
+
+  const capitalizarPrimeraLetra = (texto) => {
+    if (!texto) return '';
+    return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase();
+  };
+  
   const fetchPerfil = async () => {
     try {
       const response = await axios.get('http://localhost:4000/voluntarios/perfil', { withCredentials: true });
@@ -43,7 +57,7 @@ const PerfilVoluntario = () => {
             {/* Foto de perfil centrada en la columna izquierda */}
             <div className="col-md-4 d-flex align-items-center justify-content-center">
                 <img 
-                    src="path/to/image.jpg" 
+                    src = {imageUrl}
                     alt="Foto de perfil" 
                     className="img-fluid rounded-circle" 
                     style={{ maxWidth: "150px" }} 
@@ -52,15 +66,15 @@ const PerfilVoluntario = () => {
             {/* Información del perfil */}
             <div className="col-md-8">
                 <div className="card-body">
-                    <h3 className="card-title">Bienvenido, {perfil.nombre}</h3>
+                    <h3 className="card-title">Bienvenido, {capitalizarPrimeraLetra(perfil.nombre)}</h3>
                     <ul className="list-group list-group-flush mb-3">
-                        <li className="list-group-item"><strong>Nombre:</strong> {perfil.nombre}</li>
-                        <li className="list-group-item"><strong>Apellido:</strong> {perfil.apellido}</li>
+                        <li className="list-group-item"><strong>Nombre:</strong> {capitalizarPrimeraLetra(perfil.nombre)}</li>
+                        <li className="list-group-item"><strong>Apellido:</strong> {capitalizarPrimeraLetra(perfil.apellido)}</li>
                         <li className="list-group-item"><strong>Correo:</strong> {perfil.correo}</li>
                         <li className="list-group-item"><strong>Teléfono:</strong> {perfil.telefono}</li>
-                        <li className="list-group-item"><strong>Fecha de Nacimiento:</strong> {perfil.fecha_nacimiento}</li>
-                        <li className="list-group-item"><strong>Dirección:</strong> {perfil.direccion}</li>
-                        <li className="list-group-item"><strong>Habilidades:</strong> {perfil.habilidades}</li>
+                        <li className="list-group-item"><strong>Fecha de Nacimiento:</strong> {formatearFecha(perfil.fecha_nacimiento)}</li>
+                        <li className="list-group-item"><strong>Dirección:</strong> {capitalizarPrimeraLetra(perfil.direccion)}</li>
+                        <li className="list-group-item"><strong>Habilidades:</strong> {capitalizarPrimeraLetra(perfil.habilidades)}</li>
                         <li className="list-group-item">
                             <strong>Estado:</strong> 
                             <span className={`badge ${perfil.estado ? "bg-success" : "bg-secondary"}`}>
