@@ -37,18 +37,47 @@ const PerfilVoluntario = () => {
   const imageUrl = perfil.foto_perfil ? `http://localhost:4000/uploads/${perfil.foto_perfil}` : null;
 
   return (
-    <div>
-      <h1>Bienvenido {perfil.nombre}</h1>
-      <p><strong>Nombre:</strong> {perfil.nombre}</p>
-      <p><strong>Apellido:</strong> {perfil.apellido}</p>
-      <p><strong>Correo:</strong> {perfil.correo}</p>
-      <p><strong>Teléfono:</strong> {perfil.telefono}</p>
-      <p><strong>Fecha de Nacimiento:</strong> {perfil.fecha_nacimiento}</p>
-      <p><strong>Dirección:</strong> {perfil.direccion}</p>
-      <p><strong>Habilidades:</strong> {perfil.habilidades}</p>
-      <p><strong>Estado:</strong> {perfil.estado ? "Activo" : "Inactivo"}</p>
-      <p><strong>Foto de Perfil:</strong> {imageUrl && <img src={imageUrl} alt="Foto de perfil" style={{ maxWidth: '200px', borderRadius: '10px' }} />} </p>
+    <div className="container mt-5 d-flex flex-column align-items-center">
+    <div className="card p-4 shadow-sm" style={{ maxWidth: "600px", width: "100%" }}>
+        <div className="row g-0">
+            {/* Foto de perfil centrada en la columna izquierda */}
+            <div className="col-md-4 d-flex align-items-center justify-content-center">
+                <img 
+                    src="path/to/image.jpg" 
+                    alt="Foto de perfil" 
+                    className="img-fluid rounded-circle" 
+                    style={{ maxWidth: "150px" }} 
+                />
+            </div>
+            {/* Información del perfil */}
+            <div className="col-md-8">
+                <div className="card-body">
+                    <h3 className="card-title">Bienvenido, {perfil.nombre}</h3>
+                    <ul className="list-group list-group-flush mb-3">
+                        <li className="list-group-item"><strong>Nombre:</strong> {perfil.nombre}</li>
+                        <li className="list-group-item"><strong>Apellido:</strong> {perfil.apellido}</li>
+                        <li className="list-group-item"><strong>Correo:</strong> {perfil.correo}</li>
+                        <li className="list-group-item"><strong>Teléfono:</strong> {perfil.telefono}</li>
+                        <li className="list-group-item"><strong>Fecha de Nacimiento:</strong> {perfil.fecha_nacimiento}</li>
+                        <li className="list-group-item"><strong>Dirección:</strong> {perfil.direccion}</li>
+                        <li className="list-group-item"><strong>Habilidades:</strong> {perfil.habilidades}</li>
+                        <li className="list-group-item">
+                            <strong>Estado:</strong> 
+                            <span className={`badge ${perfil.estado ? "bg-success" : "bg-secondary"}`}>
+                                {perfil.estado ? "Activo" : "Inactivo"}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+    {/* Botón para actualizar información centrado debajo de la card */}
+    <div className="mt-3">
+        <button className="btn btn-primary">Actualizar Información</button>
+    </div>
+</div>
+
   );
 };
 
