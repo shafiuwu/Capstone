@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+
 
 const PerfilOrganizacion = () => {
   const [perfil, setPerfil] = useState(null);
@@ -14,7 +16,7 @@ const PerfilOrganizacion = () => {
     } catch (err) {
       console.error('Error al obtener el perfil:', err);
       if (err.response?.status === 401) {
-        alert("Error inicie sesion")
+        alert("Error, inicie sesión");
         navigate('/login-organizacion');
       } else {
         setError(err.response?.data?.message || 'Error al obtener el perfil');
@@ -38,15 +40,42 @@ const PerfilOrganizacion = () => {
   const imageUrl = perfil.foto_empresa ? `http://localhost:4000/uploads/${perfil.foto_empresa}` : null;
 
   return (
-    <div>
-      <h1>Bienvenido {perfil.nombre}</h1>
-      <p><strong>Nombre:</strong> {perfil.nombre}</p>
-      <p><strong>Tipo Organizacion:</strong> {perfil.tipo_organizacion}</p>
-      <p><strong>Correo:</strong> {perfil.contacto_email}</p>
-      <p><strong>Teléfono:</strong> {perfil.contacto_telefono}</p>
-      <p><strong>descripcion:</strong> {perfil.descripcion}</p>
-      <p><strong>Estado:</strong> {perfil.verificado ? "Verificado" : "No Verificado"}</p>
-      <p><strong>Foto de Perfil:</strong> {imageUrl && <img src={imageUrl} alt="Foto de perfil" style={{ maxWidth: '200px', borderRadius: '10px' }} />} </p>
+    <div className="container mt-5 d-flex flex-column align-items-center">
+      <div className="card p-4 shadow-sm" style={{ maxWidth: "600px", width: "100%" }}>
+        <div className="row g-0">
+          {/* Foto de perfil centrada en la columna izquierda */}
+          <div className="col-md-4 d-flex align-items-center justify-content-center">
+            <img 
+              src={imageUrl} 
+              alt="Foto de perfil" 
+              className="img-fluid rounded-circle" 
+              style={{ maxWidth: "150px" }} 
+            />
+          </div>
+          {/* Información del perfil */}
+          <div className="col-md-8">
+            <div className="card-body">
+              <h3 className="card-title">Bienvenido {perfil.nombre}</h3>
+              <ul className="list-group list-group-flush mb-3">
+                <li className="list-group-item"><strong>Nombre:</strong> {perfil.nombre}</li>
+                <li className="list-group-item"><strong>Tipo Organización:</strong> {perfil.tipo_organizacion}</li>
+                <li className="list-group-item"><strong>Correo:</strong> {perfil.contacto_email}</li>
+                <li className="list-group-item"><strong>Teléfono:</strong> {perfil.contacto_telefono}</li>
+                <li className="list-group-item"><strong>Descripción:</strong> {perfil.descripcion}</li>
+                <li className="list-group-item"><strong>Estado:</strong> 
+                  <span className={`badge ${perfil.verificado ? "bg-success" : "bg-secondary"}`}>
+                    {perfil.verificado ? "Verificado" : "No Verificado"}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Botón para actualizar información centrado debajo de la card */}
+      <div className="mt-3">
+        <button className="btn btn-primary">Actualizar Información</button>
+      </div>
     </div>
   );
 };
