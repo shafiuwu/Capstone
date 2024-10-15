@@ -6,12 +6,16 @@ const {
     crearActividad,
     borrarActividad, 
     actualizarActividad,
+    postularActividad,
+    obtenerPostulaciones,
+    decidirPostulante
 } = require('../controllers/tasks.controller')
 const router = Router();
 const multer = require('multer');
 const path = require('path');
 const {
-    authOrganizacionMiddleware
+    authOrganizacionMiddleware,
+    authVoluntarioMiddleware
 } = require('../middlewares/authMiddleware');
 
 const storage = multer.diskStorage({
@@ -29,8 +33,12 @@ const upload = multer({ storage: storage });
 //Rutas de actividades
 router.get('/actividades', obtenerDatos);
 router.get('/actividades/:id', obtenerDato);
-router.post('/actividades', upload.array('imagenes', 10), crearActividad);
+router.post('/actividades', upload.array('imagenes', 10), authOrganizacionMiddleware, crearActividad);
 router.delete('/actividades/:id', borrarActividad);
 router.put('/actividades/:id', actualizarActividad);
+router.post('/postular', authVoluntarioMiddleware, postularActividad);
+router.get('/obtenerPostulaciones', authOrganizacionMiddleware, obtenerPostulaciones);
+router.post('/postulantes/decidir', decidirPostulante);
+
 
 module.exports = router;

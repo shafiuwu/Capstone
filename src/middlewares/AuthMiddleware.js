@@ -27,8 +27,9 @@ const authVoluntarioMiddleware = (req, res, next) => {
 
 const authOrganizacionMiddleware = (req, res, next) => {
     console.log('Middleware de autenticación ejecutándose...');
-    const token = req.cookies.tokenAccesoEmpresa; // Asegúrate de que el nombre de la cookie sea correcto
+    const token = req.cookies.tokenAccesoEmpresa; 
     const secretKey = config.secretTokenKey
+
     if (!token) {
         console.log('No se proporcionó un token.');
         return res.status(401).json({ message: 'No autenticado.' });
@@ -40,12 +41,17 @@ const authOrganizacionMiddleware = (req, res, next) => {
             return res.status(401).json({ message: 'Token inválido.' });
         }
 
+        console.log('Datos del token decodificado:', decoded);
+
         req.organizacion = {
-            id: decoded.id,  
-            rol_id: decoded.rol_id     
+            id: decoded.id,
+            rol_id: decoded.rol_id,
+            nombre: decoded.nombre  
         };
- 
-        console.log('ID de la organizacion:', req.organizacion);
+
+        console.log('ID de la organización:', req.organizacion.id);
+        console.log('Nombre de la organización:', req.organizacion.nombre);
+
         next();
     });
 };

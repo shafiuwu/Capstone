@@ -160,7 +160,7 @@ const loginOrganizacion = async (req, res, next) => {
             return res.status(401).json({ message: 'Contraseña incorrecta' });
         }
 
-        const token = jwt.sign({ id: empresa.id, rol_id: empresa.rol_id }, config.secretTokenKey, { expiresIn: '1h' });
+        const token = jwt.sign({ id: empresa.id, rol_id: empresa.rol_id, nombre: empresa.nombre }, config.secretTokenKey, { expiresIn: '1h' });
         
         res.cookie('tokenAccesoEmpresa', token, {
             maxAge: 3600000

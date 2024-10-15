@@ -28,7 +28,6 @@ const obtenerDato = async (req, res) => {
     }
 };
 
-
 const crearActividad = async (req, res) => {
     const {
         nombre_actividad,
@@ -40,8 +39,11 @@ const crearActividad = async (req, res) => {
         descripcion
     } = req.body;
 
+    const organizacionId = req.organizacion.id;
+    const nombreOrganizacion = req.organizacion.nombre
+
     const id = uuidv4();
-    let imagenes = []
+    let imagenes = [];
 
     if (req.files) {
         imagenes = req.files.map(file => file.filename); // Obtener los nombres de los archivos
@@ -49,17 +51,18 @@ const crearActividad = async (req, res) => {
 
     try {
         const datos = await db.query(
-            "INSERT INTO actividades (id, nombre_actividad, organizacion_a_cargo, direccion, requisitos, fecha_inicio, fecha_fin, descripcion, imagenes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)",
+            "INSERT INTO actividades (id, nombre_actividad, organizacion_a_cargo, direccion, requisitos, fecha_inicio, fecha_fin, descripcion, imagenes, organizacion_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
             [
                 id,
                 nombre_actividad,
-                organizacion_a_cargo,
+                nombreOrganizacion,
                 direccion,
                 requisitos,
                 fecha_inicio,
                 fecha_fin,
                 descripcion,
-                imagenes // Se guarda un array de nombres de archivos
+                imagenes,
+                organizacionId
             ]
         );
 
@@ -70,6 +73,7 @@ const crearActividad = async (req, res) => {
         res.status(500).send('Error al crear la actividad');
     }
 };
+
 
 
 
@@ -151,10 +155,91 @@ const actualizarActividad = async (req, res) => {
     }
 };
 
+const postularActividad = async (req, res, next) => {
+    try {
+        const { actividad_id } = req.body;
+        const voluntario_id = req.voluntario.id;
+        const organizacion = await db.query('SELECT organizacion_id FROM actividades WHERE id = $1', [actividad_id]);
+
+        if (organizacion.rows.length === 0) {
+            return res.status(404).json({ message: 'Actividad no encontrada' });
+        }
+
+        const organizacion_id = organizacion.rows[0].organizacion_id;
+
+        // Insertar en la tabla de inscripciones
+        await db.query(
+            'INSERT INTO inscripciones (actividad_id, voluntario_id, organizacion_id) VALUES ($1, $2, $3)',
+            [actividad_id, voluntario_id, organizacion_id]
+        );
+
+        return res.status(200).json({ message: 'Postulación exitosa' });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const obtenerPostulaciones = async (req, res, next) => {
+    try {
+        const organizacionId = req.organizacion.id; 
+        const todasPostulaciones = await db.query(`
+            SELECT ins.id,
+                   vol.nombre,
+                   vol.apellido,
+                   vol.correo,
+                   vol.telefono,
+                   act.nombre_actividad,
+                   org.nombre AS nombre_organizacion,
+                   ins.estado
+            FROM inscripciones ins
+            JOIN voluntarios vol ON ins.voluntario_id = vol.id
+            JOIN actividades act ON ins.actividad_id = act.id
+            JOIN empresa org ON act.organizacion_id = org.id
+            WHERE act.organizacion_id = $1
+        `, [organizacionId]); // Aquí aseguramos que la consulta esté correctamente formateada.
+
+        res.json(todasPostulaciones.rows);
+    } catch (error) {
+        next(error); // Pasar el error al middleware de manejo de errores
+    }
+};
+
+const decidirPostulante = async (req, res) => {
+    const { id, decision } = req.body;
+
+    try {
+        const query = `
+            UPDATE inscripciones 
+            SET estado = $1 
+            WHERE id = $2
+            RETURNING *; 
+        `;
+        
+        // Asignar el valor adecuado para el estado
+        const estado = decision === 'ACEPTADO' ? 'ACEPTADO' : 'RECHAZADO'; 
+        const values = [estado, id];
+
+        console.log("Consulta SQL:", query, "Valores:", values); // Log para depuración
+
+        const result = await db.query(query, values);
+
+        res.status(200).json(result.rows); 
+    } catch (error) {
+        console.error("Error al decidir sobre el postulante:", error);
+        res.status(500).json({ error: "Error al decidir sobre el postulante" });
+    }
+};
+
+
+  
+
 module.exports = {
     obtenerDatos,
     obtenerDato,
     crearActividad,
     borrarActividad,
     actualizarActividad,
+    postularActividad,
+    obtenerPostulaciones,
+    decidirPostulante
 }
