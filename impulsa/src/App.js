@@ -11,36 +11,26 @@ import LoginOrg from './pages/Organizacion/LoginOrg';
 import PerfilVoluntario from './pages/perfil/PerfilVoluntario';
 import ProtectedRoutes from './components/ProtectedRoutes'; 
 import PerfilOrganizacion from './pages/Organizacion/PerfilOrganizacion';
-
+import Actividades from './pages/Actividades/Actividades';
+import ActividadDetalle from './pages/Actividades/ActividadDetalles'; 
+import ListarActividades from './pages/Organizacion/ListaActividades'
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* Ruta para la página principal */}
         <Route path="/" element={<HomePage />} />
-        
-        {/* Ruta para la página de login */}
         <Route path="/login" element={<Login />} />
-
-        {/* Ruta para la página de registro */}
         <Route path="/registro" element={<Registro />} />
-
-        {/* Ruta para la página de registro de organización */}
         <Route path="/registro-organizacion" element={<RegistroOrg />} />
-        
-        {/* Ruta protegida para agregar actividad */}
         <Route path="/agregar-actividad" element={<ProtectedRoutes allowedRole={3} element={<Actividad />} />} />
-
-
-        {/* Ruta para la página de login de organización */}
         <Route path="/login-organizacion" element={<LoginOrg />} />
+        <Route path="/perfil" element={<PerfilVoluntario />} />
+        <Route path="/perfil-organizacion" element={<PerfilOrganizacion />} />
+        <Route path="/actividades" element={<Actividades />} />
+        <Route path="/actividades/:id" element={<ActividadDetalle />} />
+        <Route path="/listar-postulaciones" element={<ProtectedRoutes allowedRole={3} element={<ListarActividades />} />} />
 
-        {/* Ruta para la página del perfil del voluntario */}
-        <Route path="/perfil" element={<PerfilVoluntario />} /> 
-
-        {/* Ruta para la página del perfil del voluntario */}
-        <Route path="/perfil-organizacion" element={<PerfilOrganizacion />} /> 
 
       </Routes>
     </Router>

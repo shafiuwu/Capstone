@@ -1,0 +1,5 @@
+.actividad-imagen {
+    height: 200px; /* Ajusta la altura de las imágenes */
+    object-fit: cover; /* Asegura que las imágenes se recorten correctamente */
+  }
+  

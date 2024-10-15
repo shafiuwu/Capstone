@@ -1,0 +1,12 @@
+.actividad-detalle-carousel {
+    margin-top: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .actividad-detalle-carousel img {
+    height: 400px;
+    object-fit: cover;
+  }
+  

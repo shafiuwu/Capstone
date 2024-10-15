@@ -31,7 +31,7 @@ const Navbar = () => {
                         <Link to="/" className="nav-link actives espacio fs-3 fw-light text-body-emphasis" aria-current="page">Inicio</Link>
                         <a className="nav-link actives espacio fs-3 fw-light text-body-emphasis" aria-current="page" href="#">Nosotros</a>
                         <a className="nav-link espacio fs-3 fw-light text-body-emphasis" href="#">Misión</a>
-                        <a className="nav-link espacio fs-3 fw-light text-body-emphasis" href="#">Voluntariados</a>
+                        <Link to="/actividades" className="nav-link espacio fs-3 fw-light text-body-emphasis" href="#">Voluntariados</Link>
                         <button className="nav-link btn fs-4" onClick={toggleMenu} aria-label="Open menu">
                             <span className="navbar-toggler-icon"></span>
                         </button>
