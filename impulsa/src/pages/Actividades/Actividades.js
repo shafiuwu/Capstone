@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Carousel } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; // Importa Link para las rutas
+import { Link } from 'react-router-dom'; 
 import './Actividades.css';
 import Navbar from '../../components/Navbar';
 
@@ -12,7 +12,7 @@ const Actividades = () => {
   useEffect(() => {
     const fetchActividades = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/actividades'); // Cambia esta URL a la de tu API
+        const response = await axios.get('http://localhost:4000/actividades'); 
         setActividades(response.data);
       } catch (error) {
         console.error('Error al obtener actividades:', error);

@@ -23,6 +23,9 @@ const PerfilOrganizacion = () => {
       }
     }
   };
+  const irAActualizarOrganizacion = () => {
+    navigate('/actualizar-organizacion'); // Redirigir a la página de actualización
+  };
 
   useEffect(() => {
     fetchPerfil();
@@ -74,7 +77,7 @@ const PerfilOrganizacion = () => {
       </div>
       {/* Botón para actualizar información centrado debajo de la card */}
       <div className="mt-3">
-        <button className="btn btn-primary">Actualizar Información</button>
+        <button className="btn btn-primary" onClick={irAActualizarOrganizacion}>Actualizar Información</button>
       </div>
     </div>
   );

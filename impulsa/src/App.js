@@ -9,11 +9,13 @@ import RegistroOrg from './pages/Organizacion/RegistroOrg';
 import Actividad from './pages/Organizacion/Actividad';
 import LoginOrg from './pages/Organizacion/LoginOrg';
 import PerfilVoluntario from './pages/perfil/PerfilVoluntario';
-import ProtectedRoutes from './components/ProtectedRoutes'; 
+import {ProtectedRoutes, ProtectedRoutesUser} from './components/ProtectedRoutes'; 
 import PerfilOrganizacion from './pages/Organizacion/PerfilOrganizacion';
 import Actividades from './pages/Actividades/Actividades';
 import ActividadDetalle from './pages/Actividades/ActividadDetalles'; 
 import ListarActividades from './pages/Organizacion/ListaActividades'
+import ActualizarOrganizacion from './pages/Organizacion/ActualizarOrganizacion'
+import ActualizarVoluntario from './pages/perfil/ActualizarVoluntario'
 
 function App() {
   return (
@@ -30,7 +32,8 @@ function App() {
         <Route path="/actividades" element={<Actividades />} />
         <Route path="/actividades/:id" element={<ActividadDetalle />} />
         <Route path="/listar-postulaciones" element={<ProtectedRoutes allowedRole={3} element={<ListarActividades />} />} />
-
+        <Route path="/actualizar-organizacion" element={<ProtectedRoutes allowedRole={3} element={<ActualizarOrganizacion />} />} />
+        <Route path="/actualizar-voluntario" element={<ProtectedRoutesUser allowedRole={1} element={<ActualizarVoluntario />} />} />
 
       </Routes>
     </Router>
