@@ -24,7 +24,10 @@ const PerfilOrganizacion = () => {
     }
   };
   const irAActualizarOrganizacion = () => {
-    navigate('/actualizar-organizacion'); // Redirigir a la página de actualización
+    navigate('/actualizar-organizacion');
+  };
+  const irListarActividades = () => {
+    navigate('/listar-postulaciones');
   };
 
   useEffect(() => {
@@ -75,9 +78,10 @@ const PerfilOrganizacion = () => {
           </div>
         </div>
       </div>
-      {/* Botón para actualizar información centrado debajo de la card */}
       <div className="mt-3">
         <button className="btn btn-primary" onClick={irAActualizarOrganizacion}>Actualizar Información</button>
+      </div>      <div className="mt-3">
+        <button className="btn btn-primary" onClick={irListarActividades}>Ver postulantes</button>
       </div>
     </div>
   );

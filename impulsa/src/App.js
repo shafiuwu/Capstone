@@ -16,6 +16,7 @@ import ActividadDetalle from './pages/Actividades/ActividadDetalles';
 import ListarActividades from './pages/Organizacion/ListaActividades'
 import ActualizarOrganizacion from './pages/Organizacion/ActualizarOrganizacion'
 import ActualizarVoluntario from './pages/perfil/ActualizarVoluntario'
+import ActualizarActividad from './pages/Actividades/ActualizarActividad';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
         <Route path="/listar-postulaciones" element={<ProtectedRoutes allowedRole={3} element={<ListarActividades />} />} />
         <Route path="/actualizar-organizacion" element={<ProtectedRoutes allowedRole={3} element={<ActualizarOrganizacion />} />} />
         <Route path="/actualizar-voluntario" element={<ProtectedRoutesUser allowedRole={1} element={<ActualizarVoluntario />} />} />
+        <Route path="/actualizar-actividad/:actividadId" element={<ProtectedRoutes allowedRole={3} element={<ActualizarActividad />} />} />
 
       </Routes>
     </Router>

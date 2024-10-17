@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Carousel, Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './ActividadDetalle.css';
 import Navbar from '../../components/Navbar';
 
 const ActividadDetalle = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [actividad, setActividad] = useState(null);
   const [loading, setLoading] = useState(true);
   const [voluntarioId, setVoluntarioId] = useState(null);
@@ -37,6 +38,10 @@ const ActividadDetalle = () => {
     fetchActividad();
     fetchVoluntarioId();
   }, [id]);
+
+  const irActualizarActividad = () => {
+    navigate(`/actualizar-actividad/${id}`); // Redirigir a la página de actualización con el ID
+  };
 
   const handlePostular = async () => {
     if (!voluntarioId) {
@@ -109,14 +114,21 @@ const ActividadDetalle = () => {
         )}
 
         {/* Botón para postular */}
-        <Button variant="primary" onClick={handlePostular}>
+        <Button variant="primary" onClick={handlePostular} className='mt-3'>
           Postular
         </Button>
 
         {mensaje && <div className="mt-3 text-center">{mensaje}</div>}
+
         {volunarioRolId === 2 && (
           <Button variant="danger" className="mt-3" onClick={handleEliminar}>
             Eliminar Actividad
+          </Button>
+        )}
+        
+        {volunarioRolId === 3 && voluntarioId === actividad.organizacion_id && (
+          <Button variant="dark" className="mt-3" onClick={irActualizarActividad}>
+            Actualizar
           </Button>
         )}
       </div>
