@@ -66,9 +66,9 @@ const RegisterPage = () => {
   };
 
   return (
-    <div>
+    <div style={{backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
       <Navbar />
-      <section className="vh-100">
+      <section>
         <div className="container py-5">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col col-xl-10">

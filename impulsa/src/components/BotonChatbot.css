@@ -1,0 +1,29 @@
+.chatbot-button {
+    position: fixed; /* Fija el botón en la posición */
+    bottom: 20px; /* Distancia desde la parte inferior */
+    right: 20px; /* Distancia desde la derecha */
+    border: none; 
+    background: none; 
+    cursor: pointer;
+    padding: 0; /* Sin padding para que la imagen ocupe todo el botón */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  }
+  
+  .chat-icon {
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%; /* Hace que la imagen sea circular */
+  }
+  
+  .chatbot-window {
+    position: fixed; /* Fija la ventana del chatbot */
+    bottom: 120px; /* Para que esté justo encima del botón */
+    right: 60px; /* Alinea a la derecha */
+    width: 300px; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: white; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  }
+  

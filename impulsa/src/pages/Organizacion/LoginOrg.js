@@ -26,7 +26,7 @@ const LoginOrg = () => {
   };
 
   return (
-    <div>
+    <div style={{backgroundColor: "#f5f5f5"}}>
       <Navbar />
       <section className="vh-100">
         <div className="container py-5 h-100">

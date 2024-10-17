@@ -29,8 +29,7 @@ const Navbar = () => {
                 <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="navbarNavAltMarkup">
                     <div className="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style={{ "--bs-scroll-height": "100px" }}>
                         <Link to="/" className="nav-link actives espacio fs-3 fw-light text-body-emphasis" aria-current="page">Inicio</Link>
-                        <a className="nav-link actives espacio fs-3 fw-light text-body-emphasis" aria-current="page" href="#">Nosotros</a>
-                        <a className="nav-link espacio fs-3 fw-light text-body-emphasis" href="#">Misión</a>
+                        <a className="nav-link actives espacio fs-3 fw-light text-body-emphasis" aria-current="page" href="/Nosotros">Nosotros</a>
                         <Link to="/actividades" className="nav-link espacio fs-3 fw-light text-body-emphasis" href="#">Voluntariados</Link>
                         <button className="nav-link btn fs-4" onClick={toggleMenu} aria-label="Open menu">
                             <span className="navbar-toggler-icon"></span>
@@ -47,6 +46,7 @@ const Navbar = () => {
                 <Link to="/agregar-actividad">Actividad</Link>
                 <Link to="/login-organizacion">Login de organización</Link>
                 <Link to="/perfil">Perfil</Link>
+                <Link to="/formulario-intereses">Formulario de intereses</Link>
             </div>
         </nav>
     );

@@ -68,10 +68,10 @@ const RegistroOrg = () => {
   };
 
   return (
-    <div>
+    <div style={{backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
       <Navbar />
-      <section className="vh-100">
-        <div className="container py-5">
+      <section>
+        <div className="container py-5" style={{backgroundColor: "#f5f5f5"}}>
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col col-xl-10">
               <div className="card" style={{"borderRadius": "1rem"}}>

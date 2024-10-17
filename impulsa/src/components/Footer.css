@@ -1,0 +1,7 @@
+.redes{
+    filter: brightness(120%);
+  }
+  
+.redes:hover {
+    filter: brightness(70%);
+}
