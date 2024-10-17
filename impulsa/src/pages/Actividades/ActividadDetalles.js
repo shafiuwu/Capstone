@@ -10,13 +10,13 @@ const ActividadDetalle = () => {
   const [actividad, setActividad] = useState(null);
   const [loading, setLoading] = useState(true);
   const [voluntarioId, setVoluntarioId] = useState(null);
+  const [volunarioRolId, setVolunarioRolId] = useState(null);
   const [mensaje, setMensaje] = useState('');
 
   useEffect(() => {
     const fetchActividad = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/actividades/${id}`, {
-        });
+        const response = await axios.get(`http://localhost:4000/actividades/${id}`);
         setActividad(response.data);
       } catch (error) {
         console.error('Error al obtener la actividad:', error);
@@ -24,12 +24,13 @@ const ActividadDetalle = () => {
         setLoading(false);
       }
     };
-    
+
     const fetchVoluntarioId = () => {
-      const token = document.cookie.split('=')[1]; 
+      const token = document.cookie.split('=')[1];
       if (token) {
-        const decodedToken = JSON.parse(atob(token.split('.')[1])); 
+        const decodedToken = JSON.parse(atob(token.split('.')[1]));
         setVoluntarioId(decodedToken.id);
+        setVolunarioRolId(decodedToken.rol_id);
       }
     };
 
@@ -40,7 +41,7 @@ const ActividadDetalle = () => {
   const handlePostular = async () => {
     if (!voluntarioId) {
       setMensaje('Necesitas estar logeado para postular a esta actividad.');
-      return; 
+      return;
     }
 
     try {
@@ -56,6 +57,20 @@ const ActividadDetalle = () => {
       console.error('Error al postular:', error);
       alert('Error al postular a la actividad.');
       setMensaje('Error al postular a la actividad.');
+    }
+  };
+
+  const handleEliminar = async () => {
+    const confirmDelete = window.confirm(`¿Seguro que quieres eliminar ${actividad.nombre_actividad}?`);
+    if (confirmDelete) {
+      try {
+        const response = await axios.delete(`http://localhost:4000/actividades/${id}`);
+        alert(response.data.message);
+        // Puedes redirigir o hacer algo después de la eliminación, como volver a la lista de actividades
+      } catch (error) {
+        console.error('Error al eliminar la actividad:', error);
+        alert('Error al eliminar la actividad.');
+      }
     }
   };
 
@@ -99,6 +114,11 @@ const ActividadDetalle = () => {
         </Button>
 
         {mensaje && <div className="mt-3 text-center">{mensaje}</div>}
+        {volunarioRolId === 2 && (
+          <Button variant="danger" className="mt-3" onClick={handleEliminar}>
+            Eliminar Actividad
+          </Button>
+        )}
       </div>
     </div>
   );

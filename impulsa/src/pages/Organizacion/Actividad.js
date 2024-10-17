@@ -10,6 +10,7 @@ const AgregarOportunidad = () => {
     const [fecha_fin, setFechaFin] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [imagenes, setImagenes] = useState(null);
+    const [categoria, setCategoria] = useState('')
     const [mensaje, setMensaje] = useState('');
 
     const handleSubmit = async (e) => {
@@ -22,6 +23,7 @@ const AgregarOportunidad = () => {
         formData.append('fecha_inicio', fecha_inicio);
         formData.append('fecha_fin', fecha_fin);
         formData.append('descripcion', descripcion);
+        formData.append('categoria', categoria);
 
         if (imagenes) {
             for (let i = 0; i < imagenes.length; i++) {
@@ -74,6 +76,23 @@ const AgregarOportunidad = () => {
                             <label htmlFor="fechaFin" className="form-label">Fecha de fin</label>
                             <input type="date" className="form-control" id="fecha_fin" required onChange={(e) => setFechaFin(e.target.value)} />
                         </div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="categoria" className="form-label">Categoría</label>
+                        <select id="categoria" name="categoria" className="form-control" required onChange={(e) => setCategoria(e.target.value)}>
+                            <option value="">Seleccione una categoría</option>
+                            <option value="Educación y Capacitación">Educación y Capacitación</option>
+                            <option value="Salud y Bienestar">Salud y Bienestar</option>
+                            <option value="Medioambiente y Sostenibilidad">Medioambiente y Sostenibilidad</option>
+                            <option value="Desarrollo Comunitario">Desarrollo Comunitario</option>
+                            <option value="Apoyo Social">Apoyo Social</option>
+                            <option value="Protección Animal">Protección Animal</option>
+                            <option value="Cultura y Arte">Cultura y Arte</option>
+                            <option value="Tecnología y Comunicación">Tecnología y Comunicación</option>
+                            <option value="Derechos Humanos y Justicia">Derechos Humanos y Justicia</option>
+                            <option value="Deporte y Recreación">Deporte y Recreación</option>
+                            <option value="Ayuda en Desastres y Emergencias">Ayuda en Desastres y Emergencias</option>
+                        </select>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="descripcion" className="form-label">Descripción</label>

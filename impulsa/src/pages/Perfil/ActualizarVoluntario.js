@@ -7,13 +7,13 @@ const ActualizarVoluntario = () => {
     nombre: '',
     apellido: '',
     correo: '',
-    contrasena: '',
     telefono: '',
     fecha_nacimiento: '',
     direccion: '', 
     habilidades: '',
     estado: 'activo', 
-    foto_perfil: ''
+    foto_perfil: '',
+    contrasena: ''
   });
 
   const [mensaje, setMensaje] = useState('');
