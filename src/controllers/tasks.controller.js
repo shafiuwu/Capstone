@@ -36,7 +36,8 @@ const crearActividad = async (req, res) => {
         requisitos,
         fecha_inicio,
         fecha_fin,
-        descripcion
+        descripcion,
+        categoria
     } = req.body;
 
     const organizacionId = req.organizacion.id;
@@ -51,7 +52,7 @@ const crearActividad = async (req, res) => {
 
     try {
         const datos = await db.query(
-            "INSERT INTO actividades (id, nombre_actividad, organizacion_a_cargo, direccion, requisitos, fecha_inicio, fecha_fin, descripcion, imagenes, organizacion_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)",
+            "INSERT INTO actividades (id, nombre_actividad, organizacion_a_cargo, direccion, requisitos, fecha_inicio, fecha_fin, descripcion, imagenes, organizacion_id, categoria) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)",
             [
                 id,
                 nombre_actividad,
@@ -62,7 +63,9 @@ const crearActividad = async (req, res) => {
                 fecha_fin,
                 descripcion,
                 imagenes,
-                organizacionId
+                organizacionId,
+                categoria
+                
             ]
         );
 
@@ -76,32 +79,32 @@ const crearActividad = async (req, res) => {
 
 
 
-
-
-const borrarActividad = async (req, res) => {
-    try{
-    const { id } = req.params; 
-    const resultado = await db.query('DELETE FROM actividades WHERE id = $1', [id]); 
-
-    if (resultado.rowCount === 0) {
-        return res.status(404).json({ 
-            message: 'Información no encontrada'
+const borrarActividad = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+  
+      // Eliminar inscripciones relacionadas con la actividad
+      await db.query('DELETE FROM inscripciones WHERE actividad_id = $1', [id]);
+  
+      // Luego, eliminar la actividad
+      const resultado = await db.query('DELETE FROM actividades WHERE id = $1', [id]);
+  
+      if (resultado.rowCount === 0) {
+        return res.status(404).json({
+          message: 'Actividad no encontrada'
         });
-    }
-    return res.status(200).json({
+      }
+  
+      return res.status(200).json({
         message: 'Actividad eliminada correctamente',
         id: id
-    });
-    console.log(resultado)
-    }catch(error){
-        next(error)
+      });
+    } catch (error) {
+      next(error);
     }
-
-    
-};
-
-
-const actualizarActividad = async (req, res) => {
+  };
+  
+  const actualizarActividad = async (req, res, next) => {
     const { id } = req.params;
     const {
         nombre_actividad,
@@ -111,10 +114,14 @@ const actualizarActividad = async (req, res) => {
         fecha_inicio,
         fecha_fin,
         descripcion,
-        imagenes
+        categoria
     } = req.body;
 
+    // Procesar las nuevas imágenes
+    let nuevasImagenes = req.files ? req.files.map(file => file.filename) : [];
+
     try {
+        // Actualizar la actividad con las nuevas imágenes
         const resultado = await db.query(
             `UPDATE actividades
             SET 
@@ -125,8 +132,9 @@ const actualizarActividad = async (req, res) => {
                 fecha_inicio = $5,
                 fecha_fin = $6,
                 descripcion = $7,
-                imagenes = $8
-            WHERE id = $9`,
+                imagenes = $8,
+                categoria = $9
+            WHERE id = $10`,
             [
                 nombre_actividad,
                 organizacion_a_cargo,
@@ -135,7 +143,8 @@ const actualizarActividad = async (req, res) => {
                 fecha_inicio,
                 fecha_fin,
                 descripcion,
-                imagenes,
+                nuevasImagenes, // Almacenar solo las nuevas imágenes
+                categoria,
                 id
             ]
         );
@@ -151,9 +160,10 @@ const actualizarActividad = async (req, res) => {
             message: 'Actividad actualizada correctamente'
         });
     } catch (error) {
-        next(error)
+        return next(error);
     }
 };
+
 
 const postularActividad = async (req, res, next) => {
     try {

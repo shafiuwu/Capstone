@@ -17,8 +17,8 @@ const obtenerOrganizaciones = async (req, res, next) => {
 
 const obtenerOrganizacion = async (req, res, next) => {
     try {
-        const { id } = req.params; 
-        const obtenerOrganizacion = await db.query('SELECT * FROM empresa WHERE id = $1', [id]); 
+        const organizacionId = req.organizacion.id;
+        const obtenerOrganizacion = await db.query('SELECT * FROM empresa WHERE id = $1', [organizacionId]); 
 
         console.log(obtenerOrganizacion);
 
@@ -98,31 +98,48 @@ const borrarOrganizacion = async (req, res, next) => {
 };
 
 const actualizarOrganizacion = async (req, res, next) => {
-    const organizacionId = req.organizacion.id;
+    const organizacionId = req.organizacion.id; // ID de la organización obtenida del middleware
     const {
         nombre,
         tipo_organizacion,
         contacto_email,
+        contrasena,
         contacto_telefono,
-        descripcion
+        descripcion,
+        foto_empresa
     } = req.body;
 
+    const nuevaFoto = req.file ? req.file.filename : foto_empresa; // Verifica si hay una imagen cargada
+
     try {
+        let contraseñaEncriptada = contrasena;
+
+        // Encriptar la contraseña solo si se envía una nueva
+        if (contrasena) {
+            const salt = await bcrypt.genSalt(10); // Genera el salt
+            contraseñaEncriptada = await bcrypt.hash(contrasena, salt); // Encripta la contraseña
+        }
+
+        // Actualizar la empresa con la información proporcionada
         const resultado = await db.query(
             `UPDATE empresa
             SET 
                 nombre = $1,
                 tipo_organizacion = $2,
                 contacto_email = $3,
-                contacto_telefono = $4,
-                descripcion = $5
-            WHERE id = $6`,
+                contrasena = $4,
+                contacto_telefono = $5,
+                descripcion = $6,
+                foto_empresa = $7
+            WHERE id = $8`,
             [
                 nombre,
                 tipo_organizacion,
                 contacto_email,
+                contraseñaEncriptada,
                 contacto_telefono,
                 descripcion,
+                nuevaFoto, // Si se subió una imagen, se guarda
                 organizacionId
             ]
         );
@@ -133,7 +150,7 @@ const actualizarOrganizacion = async (req, res, next) => {
             });
         }
 
-        console.log(`Organización actualizada ID: ${id}`);
+        console.log(`Organización actualizada ID: ${organizacionId}`);
         return res.status(200).json({
             message: 'Organización actualizada correctamente'
         });
@@ -141,6 +158,7 @@ const actualizarOrganizacion = async (req, res, next) => {
         next(error);
     }
 };
+
 
 const loginOrganizacion = async (req, res, next) => {
     const { correo, contrasena } = req.body;
@@ -157,7 +175,7 @@ const loginOrganizacion = async (req, res, next) => {
         const esContraseñaValida = await bcrypt.compare(contrasena, empresa.contrasena);
 
         if (!esContraseñaValida) {
-            return res.status(401).json({ message: 'Contraseña incorrecta' });
+            return res.status(401).json({ message: 'Usuario o Contraseña Incorrecta' });
         }
 
         const token = jwt.sign({ id: empresa.id, rol_id: empresa.rol_id, nombre: empresa.nombre }, config.secretTokenKey, { expiresIn: '1h' });
@@ -192,8 +210,6 @@ const perfilOrganizacion = async (req, res, next) => {
         res.status(500).json({ message: 'Error en la consulta a la base de datos.' });
     }
 };
-
-
 
 
 module.exports = {

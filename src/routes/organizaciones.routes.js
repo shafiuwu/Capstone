@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const db = require('../db');
 
-const { authOrganizacionMiddleware } = require('../middlewares/AuthMiddleware')
+const { authOrganizacionMiddleware, authVoluntarioMiddleware } = require('../middlewares/AuthMiddleware')
 const { 
     obtenerOrganizaciones, 
     obtenerOrganizacion,
@@ -29,10 +29,10 @@ const upload = multer({ storage: storage });
 
 router.get('/organizaciones/perfil', authOrganizacionMiddleware, perfilOrganizacion);
 router.get('/organizaciones', obtenerOrganizaciones);
-router.get('/organizaciones/:id', obtenerOrganizacion);
+router.get('/organizacion', authOrganizacionMiddleware, obtenerOrganizacion);
 router.post('/organizaciones', upload.single('foto_empresa'), crearOrganizacion);
 router.post('/organizaciones/login', loginOrganizacion);
 router.delete('/organizacion', authOrganizacionMiddleware, borrarOrganizacion);
-router.put('/organizaciones/:id', authOrganizacionMiddleware, actualizarOrganizacion);
+router.put('/organizaciones/actualizar', upload.single('foto_empresa'), authOrganizacionMiddleware, actualizarOrganizacion);
 
 module.exports = router;

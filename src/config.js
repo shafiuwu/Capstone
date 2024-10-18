@@ -1,5 +1,12 @@
+// config.js
 const { config } = require('dotenv');
 config();
+
+const OpenAI = require('openai'); // Asegúrate de instalar openai con npm install openai
+
+const client = new OpenAI({
+    apiKey: process.env.SECRET_CHATGPT_KEY, // Usando la variable de entorno
+});
 
 module.exports = {
     db: {
@@ -9,5 +16,6 @@ module.exports = {
         port: process.env.port,
         database: process.env.database
     },
-    secretTokenKey: process.env.SECRET_TOKEN_KEY
+    secretTokenKey: process.env.SECRET_TOKEN_KEY,
+    client
 };
