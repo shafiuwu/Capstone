@@ -14,7 +14,6 @@ const ActualizarActividad = () => {
   const [categoria, setCategoria] = useState('');
   const [mensaje, setMensaje] = useState('');
 
-  // Cargar datos actuales de la actividad al montar el componente
   useEffect(() => {
     const obtenerActividad = async () => {
       try {
@@ -29,7 +28,7 @@ const ActualizarActividad = () => {
         setFechaFin(fechaFinFormateada);
         setDescripcion(actividad.descripcion);
         setCategoria(actividad.categoria);
-        setImagenes(actividad.imagenes || []); // Asignar las imágenes existentes
+        setImagenes(actividad.imagenes || []);
       } catch (error) {
         console.error('Error al cargar los datos de la actividad:', error);
       }
@@ -52,7 +51,6 @@ const ActualizarActividad = () => {
     formData.append('descripcion', descripcion);
     formData.append('categoria', categoria);
 
-    // Añadir múltiples imágenes a formData
     if (imagenes.length > 0) {
       for (let i = 0; i < imagenes.length; i++) {
         formData.append('imagenes', imagenes[i]);
@@ -110,7 +108,6 @@ const ActualizarActividad = () => {
             <option value="salud">Salud</option>
             <option value="medio_ambiente">Medio Ambiente</option>
             <option value="social">Social</option>
-            {/* Agrega más categorías según sea necesario */}
           </select>
         </div>
         <div className="mb-3">

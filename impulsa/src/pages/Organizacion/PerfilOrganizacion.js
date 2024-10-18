@@ -42,14 +42,14 @@ const PerfilOrganizacion = () => {
     return <div>Cargando perfil...</div>;
   }
 
-  // Construir la URL de la imagen de perfil
   const imageUrl = perfil.foto_empresa ? `http://localhost:4000/uploads/${perfil.foto_empresa}` : null;
 
   return (
+    <div>
+      <Navbar />
     <div className="container mt-5 d-flex flex-column align-items-center">
       <div className="card p-4 shadow-sm" style={{ maxWidth: "600px", width: "100%" }}>
         <div className="row g-0">
-          {/* Foto de perfil centrada en la columna izquierda */}
           <div className="col-md-4 d-flex align-items-center justify-content-center">
             <img 
               src={imageUrl} 
@@ -58,7 +58,6 @@ const PerfilOrganizacion = () => {
               style={{ maxWidth: "150px" }} 
             />
           </div>
-          {/* Información del perfil */}
           <div className="col-md-8">
             <div className="card-body">
               <h3 className="card-title">Bienvenido {perfil.nombre}</h3>
@@ -83,6 +82,7 @@ const PerfilOrganizacion = () => {
       </div>      <div className="mt-3">
         <button className="btn btn-primary" onClick={irListarActividades}>Ver postulantes</button>
       </div>
+    </div>
     </div>
   );
 };

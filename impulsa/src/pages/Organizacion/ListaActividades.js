@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from '../../components/Navbar'
 
 const obtenerPostulaciones = async () => {
     try {
@@ -56,6 +57,7 @@ const Postulaciones = () => {
 
     return (
         <div className="container mt-4">
+            <Navbar />
             <h2 className="text-center mb-4">Postulaciones</h2>
             {postulaciones.length > 0 ? (
                 <div className="table-responsive">
@@ -65,6 +67,7 @@ const Postulaciones = () => {
                                 <th>Nombre</th>
                                 <th>Correo</th>
                                 <th>Organización</th>
+                                <th>Nombre Actividad</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
@@ -75,6 +78,7 @@ const Postulaciones = () => {
                                     <td>{postulante.nombre} {postulante.apellido}</td>
                                     <td>{postulante.correo}</td>
                                     <td>{postulante.nombre_organizacion}</td>
+                                    <td>{postulante.nombre_actividad}</td>
                                     <td>{postulante.estado}</td>
                                     <td>
                                         <button 

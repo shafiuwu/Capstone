@@ -1,5 +1,45 @@
+.actividades-page {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 20px;
+}
+
+.actividad-carousel img {
+  max-height: 250px;
+  object-fit: cover;
+}
+
+.card-footer .btn {
+  width: 100%;
+}
+
+h1 {
+  color: #333;
+}
+
+/* Actividades.css */
+.actividad-card {
+  height: 100%; /* Permitir que todas las tarjetas tengan la misma altura */
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column; /* Alinear los elementos en una columna */
+  justify-content: space-between; /* Distribuir el espacio entre ellos */
+  height: 100%; /* Permitir que el cuerpo de la tarjeta ocupe toda la altura */
+}
+
+.card-text {
+  flex-grow: 1; /* Permitir que el texto ocupe el espacio restante */
+}
+
 .actividad-imagen {
-    height: 200px; /* Ajusta la altura de las imágenes */
-    object-fit: cover; /* Asegura que las imágenes se recorten correctamente */
-  }
-  
+  width: 100%; /* Asegúrate de que la imagen ocupe todo el ancho */
+  height: 200px; /* Establece una altura fija */
+  object-fit: cover; /* Mantiene la proporción y recorta la imagen si es necesario */
+}

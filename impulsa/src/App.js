@@ -8,17 +8,17 @@ import HomePage from './pages/HomePage/HomePage';
 import RegistroOrg from './pages/Organizacion/RegistroOrg';
 import Actividad from './pages/Organizacion/Actividad';
 import LoginOrg from './pages/Organizacion/LoginOrg';
-import PerfilVoluntario from './pages/Perfil/PerfilVoluntario';
+import PerfilVoluntario from './pages/perfil/PerfilVoluntario';
 import {ProtectedRoutes, ProtectedRoutesUser} from './components/ProtectedRoutes'; 
 import PerfilOrganizacion from './pages/Organizacion/PerfilOrganizacion';
 import Actividades from './pages/Actividades/Actividades';
 import ActividadDetalle from './pages/Actividades/ActividadDetalles'; 
 import ListarActividades from './pages/Organizacion/ListaActividades'
 import ActualizarOrganizacion from './pages/Organizacion/ActualizarOrganizacion'
-import ActualizarVoluntario from './pages/Perfil/ActualizarVoluntario'
+import ActualizarVoluntario from './pages/perfil/ActualizarVoluntario'
 import ActualizarActividad from './pages/Actividades/ActualizarActividad';
 import Nosotros from './pages/HomePage/Nosotros';
-import FormularioIntereses from './pages/Perfil/FormIntereses';
+import FormularioIntereses from './pages/perfil/FormIntereses';
 import BotonChatbot from './components/BotonChatbot';
 
 function App() {

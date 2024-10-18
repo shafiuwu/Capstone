@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Carousel, Button } from 'react-bootstrap';
+import { Carousel, Button, Alert } from 'react-bootstrap';
 import { useParams, useNavigate } from 'react-router-dom';
 import './ActividadDetalle.css';
 import Navbar from '../../components/Navbar';
@@ -11,7 +11,7 @@ const ActividadDetalle = () => {
   const [actividad, setActividad] = useState(null);
   const [loading, setLoading] = useState(true);
   const [voluntarioId, setVoluntarioId] = useState(null);
-  const [volunarioRolId, setVolunarioRolId] = useState(null);
+  const [voluntarioRolId, setVoluntarioRolId] = useState(null);
   const [mensaje, setMensaje] = useState('');
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const ActividadDetalle = () => {
       if (token) {
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
         setVoluntarioId(decodedToken.id);
-        setVolunarioRolId(decodedToken.rol_id);
+        setVoluntarioRolId(decodedToken.rol_id);
       }
     };
 
@@ -40,7 +40,7 @@ const ActividadDetalle = () => {
   }, [id]);
 
   const irActualizarActividad = () => {
-    navigate(`/actualizar-actividad/${id}`); // Redirigir a la página de actualización con el ID
+    navigate(`/actualizar-actividad/${id}`);
   };
 
   const handlePostular = async () => {
@@ -50,17 +50,14 @@ const ActividadDetalle = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:4000/postular', {
-        actividad_id: id,
-        voluntario_id: voluntarioId
-      }, {
-        withCredentials: true
-      });
-      alert('¡Postulación realizada con éxito!');
+      const response = await axios.post(
+        'http://localhost:4000/postular',
+        { actividad_id: id, voluntario_id: voluntarioId },
+        { withCredentials: true }
+      );
       setMensaje(response.data.message);
     } catch (error) {
       console.error('Error al postular:', error);
-      alert('Error al postular a la actividad.');
       setMensaje('Error al postular a la actividad.');
     }
   };
@@ -71,7 +68,7 @@ const ActividadDetalle = () => {
       try {
         const response = await axios.delete(`http://localhost:4000/actividades/${id}`);
         alert(response.data.message);
-        // Puedes redirigir o hacer algo después de la eliminación, como volver a la lista de actividades
+        navigate('/actividades'); // Redirigir tras eliminar
       } catch (error) {
         console.error('Error al eliminar la actividad:', error);
         alert('Error al eliminar la actividad.');
@@ -80,31 +77,25 @@ const ActividadDetalle = () => {
   };
 
   if (loading) {
-    return <div>Cargando...</div>;
+    return <div className="loading">Cargando...</div>;
   }
 
   if (!actividad) {
-    return <div>No se encontró la actividad</div>;
+    return <div className="error-message">No se encontró la actividad</div>;
   }
 
   return (
-    <div>
+    <div className="actividad-detalle-page">
       <Navbar />
-      <div className="container mt-4">
-        <h1>{actividad.nombre_actividad}</h1>
-        <p><strong>Organización a Cargo:</strong> {actividad.organizacion_a_cargo}</p>
-        <p><strong>Dirección:</strong> {actividad.direccion}</p>
-        <p><strong>Requisitos:</strong> {actividad.requisitos}</p>
-        <p><strong>Fecha Inicio:</strong> {actividad.fecha_inicio}</p>
-        <p><strong>Fecha Fin:</strong> {actividad.fecha_fin}</p>
-        <p><strong>Descripción:</strong> {actividad.descripcion}</p>
+      <div className="container mt-5">
+        <h1 className="text-center mb-4">{actividad.nombre_actividad}</h1>
 
         {actividad.imagenes && actividad.imagenes.length > 0 && (
-          <Carousel className="actividad-detalle-carousel">
+          <Carousel className="actividad-detalle-carousel mb-4">
             {actividad.imagenes.map((imagen, index) => (
               <Carousel.Item key={index}>
                 <img
-                  className="d-block w-100"
+                  className="d-block w-100 actividad-imagen"
                   src={`http://localhost:4000/uploads/${imagen}`}
                   alt={`Imagen de ${actividad.nombre_actividad}`}
                 />
@@ -113,24 +104,38 @@ const ActividadDetalle = () => {
           </Carousel>
         )}
 
-        {/* Botón para postular */}
-        <Button variant="primary" onClick={handlePostular} className='mt-3'>
-          Postular
-        </Button>
+        <div className="actividad-info">
+          <p><strong>Organización a Cargo:</strong> {actividad.organizacion_a_cargo}</p>
+          <p><strong>Dirección:</strong> {actividad.direccion}</p>
+          <p><strong>Requisitos:</strong> {actividad.requisitos}</p>
+          <p><strong>Fecha Inicio:</strong> {new Date(actividad.fecha_inicio).toLocaleDateString()}</p>
+          <p><strong>Fecha Fin:</strong> {new Date(actividad.fecha_fin).toLocaleDateString()}</p>
+          <p><strong>Descripción:</strong> {actividad.descripcion}</p>
+        </div>
 
-        {mensaje && <div className="mt-3 text-center">{mensaje}</div>}
+        <div className="text-center mt-4">
+          <Button variant="primary" onClick={handlePostular} className="mx-2">
+            Postular
+          </Button>
 
-        {volunarioRolId === 2 && (
-          <Button variant="danger" className="mt-3" onClick={handleEliminar}>
-            Eliminar Actividad
-          </Button>
-        )}
-        
-        {volunarioRolId === 3 && voluntarioId === actividad.organizacion_id && (
-          <Button variant="dark" className="mt-3" onClick={irActualizarActividad}>
-            Actualizar
-          </Button>
-        )}
+          {mensaje && (
+            <Alert variant="info" className="mt-3 text-center">
+              {mensaje}
+            </Alert>
+          )}
+
+          {voluntarioRolId === 2 && (
+            <Button variant="danger" onClick={handleEliminar} className="mx-2">
+              Eliminar Actividad
+            </Button>
+          )}
+
+          {voluntarioRolId === 3 && voluntarioId === actividad.organizacion_id && (
+            <Button variant="dark" onClick={irActualizarActividad} className="mx-2">
+              Actualizar
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

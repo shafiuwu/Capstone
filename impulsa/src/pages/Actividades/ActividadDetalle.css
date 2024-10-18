@@ -1,12 +1,42 @@
+/* ActividadDetalle.css */
+
+.actividad-detalle-page {
+  background-color: #f8f9fa; /* Fondo claro para mejorar el contraste */
+  padding: 20px; /* Espaciado interno */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* ActividadDetalle.css */
+
 .actividad-detalle-carousel {
-    margin-top: 20px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .actividad-detalle-carousel img {
-    height: 400px;
-    object-fit: cover;
-  }
-  
+  border-radius: 8px; /* Bordes redondeados para el carrusel */
+  overflow: hidden; /* Esconde desbordamiento */
+  max-height: auto; /* Altura máxima para el carrusel */
+  display: flex; /* Flex para alinear las imágenes */
+}
+
+.actividad-imagen {
+  height: 100%; /* Altura completa */
+  width: auto; /* Ancho automático para mantener la proporción */
+  max-width: 100%; /* Ancho máximo 100% para evitar desbordamiento */
+  object-fit: cover;
+}
+
+
+.actividad-info {
+  background-color: white; /* Fondo blanco para la información */
+  padding: 15px; /* Espaciado interno */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.error-message {
+  text-align: center;
+  color: red; /* Color rojo para mensajes de error */
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px; /* Tamaño de fuente más grande */
+}
