@@ -10,6 +10,42 @@ const obtenerDatos =  async(req, res) => {
     }
 };
 
+const datosPorRecomendacion = async (req, res) => {
+    try {
+        const recomendacionUsuario = req.voluntario.tipo_voluntariado;
+        const obtenerTarea = await db.query('SELECT * FROM actividades WHERE categoria = $1', [recomendacionUsuario]); 
+
+        console.log(obtenerTarea);
+
+        if (obtenerTarea.rows.length === 0) {
+            return res.status(404).json({ 
+                message: 'Información no encontrada'
+            });
+        }
+        return res.json(obtenerTarea.rows); 
+    } catch (error) {
+        console.log(error)
+    }
+};
+
+const actividadPorOrganizacion = async (req, res) => {
+    try {
+        const organizacionId = req.organizacion.id;
+        const obtenerTarea = await db.query('SELECT * FROM actividades WHERE organizacion_id = $1', [organizacionId]); 
+
+        console.log(obtenerTarea);
+
+        if (obtenerTarea.rows.length === 0) {
+            return res.status(404).json({ 
+                message: 'Información no encontrada'
+            });
+        }
+        return res.json(obtenerTarea.rows); 
+    } catch (error) {
+        console.log(error)
+    }
+};
+
 const obtenerDato = async (req, res) => {
     try {
         const { id } = req.params; 
@@ -31,7 +67,6 @@ const obtenerDato = async (req, res) => {
 const crearActividad = async (req, res) => {
     const {
         nombre_actividad,
-        organizacion_a_cargo,
         direccion,
         requisitos,
         fecha_inicio,
@@ -76,8 +111,6 @@ const crearActividad = async (req, res) => {
         res.status(500).send('Error al crear la actividad');
     }
 };
-
-
 
 const borrarActividad = async (req, res, next) => {
     try {
@@ -169,7 +202,22 @@ const postularActividad = async (req, res, next) => {
     try {
         const { actividad_id } = req.body;
         const voluntario_id = req.voluntario.id;
-        const organizacion = await db.query('SELECT organizacion_id FROM actividades WHERE id = $1', [actividad_id]);
+
+        // Verificar si ya existe una inscripción para este voluntario en la actividad
+        const inscripcionExistente = await db.query(
+            'SELECT * FROM inscripciones WHERE actividad_id = $1 AND voluntario_id = $2',
+            [actividad_id, voluntario_id]
+        );
+
+        if (inscripcionExistente.rows.length > 0) {
+            return res.status(400).json({ message: 'Ya has postulado a esta actividad' });
+        }
+
+        // Obtener la organización de la actividad
+        const organizacion = await db.query(
+            'SELECT organizacion_id FROM actividades WHERE id = $1',
+            [actividad_id]
+        );
 
         if (organizacion.rows.length === 0) {
             return res.status(404).json({ message: 'Actividad no encontrada' });
@@ -194,6 +242,7 @@ const obtenerPostulaciones = async (req, res, next) => {
         const organizacionId = req.organizacion.id; 
         const todasPostulaciones = await db.query(`
             SELECT ins.id,
+                   ins.voluntario_id,
                    vol.nombre,
                    vol.apellido,
                    vol.correo,
@@ -211,6 +260,32 @@ const obtenerPostulaciones = async (req, res, next) => {
         res.json(todasPostulaciones.rows);
     } catch (error) {
         next(error); // Pasar el error al middleware de manejo de errores
+    }
+};
+
+const verPostulaciones = async (req, res, next) => {
+    try {
+        const voluntarioId = req.voluntario.id; 
+        const todasPostulaciones = await db.query(`
+            SELECT ins.id,
+                   vol.nombre,
+                   vol.apellido,
+                   vol.correo,
+                   vol.telefono,
+                   ins.voluntario_id,
+                   act.nombre_actividad,
+                   org.nombre AS nombre_organizacion,
+                   ins.estado
+            FROM inscripciones ins
+            JOIN voluntarios vol ON ins.voluntario_id = vol.id
+            JOIN actividades act ON ins.actividad_id = act.id
+            JOIN empresa org ON act.organizacion_id = org.id
+            WHERE ins.voluntario_id = $1
+        `, [voluntarioId]); 
+
+        res.json(todasPostulaciones.rows);
+    } catch (error) {
+        next(error); 
     }
 };
 
@@ -239,8 +314,6 @@ const decidirPostulante = async (req, res) => {
         res.status(500).json({ error: "Error al decidir sobre el postulante" });
     }
 };
-
-
   
 
 module.exports = {
@@ -251,5 +324,8 @@ module.exports = {
     actualizarActividad,
     postularActividad,
     obtenerPostulaciones,
-    decidirPostulante
+    decidirPostulante,
+    datosPorRecomendacion,
+    verPostulaciones,
+    actividadPorOrganizacion
 }

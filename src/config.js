@@ -5,7 +5,7 @@ config();
 const OpenAI = require('openai'); // Asegúrate de instalar openai con npm install openai
 
 const client = new OpenAI({
-    apiKey: process.env.SECRET_CHATGPT_KEY, // Usando la variable de entorno
+    apiKey: process.env.SECRET_CHATGPT_KEY, 
 });
 
 module.exports = {
@@ -17,5 +17,6 @@ module.exports = {
         database: process.env.database
     },
     secretTokenKey: process.env.SECRET_TOKEN_KEY,
+    assistantId: process.env.ASSISTANT_ID, // Agregar ASSISTANT_ID
     client
 };

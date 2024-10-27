@@ -9,6 +9,9 @@ const app = express();
 const taskRoutes = require('./routes/tasks.routes');
 const voluntariosRoutes = require('./routes/voluntarios.routes');
 const organizacionesRoutes = require('./routes/organizaciones.routes');
+const chatbot = require('./routes/chatbot.routes')
+const reportes = require('./routes/reportes.routes')
+const diploma = require('./routes/diploma.routes')
 
 app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 app.use(morgan('dev'))
@@ -23,6 +26,9 @@ app.use(cors({
 app.use(taskRoutes)
 app.use(voluntariosRoutes)
 app.use(organizacionesRoutes)
+app.use(chatbot)
+app.use(reportes)
+app.use(diploma)
 
 
 app.listen(4000)

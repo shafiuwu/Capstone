@@ -18,7 +18,9 @@ const {
     loginVoluntario,
     perfilVoluntario,
     obtenerRecomendacionVoluntario,
-    IngresarTipoVoluntario
+    IngresarTipoVoluntario,
+    buscarVoluntario,
+    ActividadesPorVoluntario
 } = require('../controllers/voluntarios.controller')
 
 const storage = multer.diskStorage({
@@ -33,13 +35,15 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 //Rutas de voluntarios
+router.get('/voluntario/actividades', authVoluntarioMiddleware, ActividadesPorVoluntario);
 router.get('/voluntarios/perfil', authVoluntarioMiddleware, perfilVoluntario);
 router.get('/voluntarios', obtenerVoluntarios);
+router.get('/voluntario/:voluntarioId', buscarVoluntario);
 router.get('/voluntario', authVoluntarioMiddleware, obtenerVoluntario)
 router.post('/voluntarios', upload.single('foto_perfil'), registroVoluntario);
 router.post('/voluntarios/login', loginVoluntario)
 router.delete('/voluntario', authVoluntarioMiddleware, borrarVoluntario);
-router.post('/voluntarios/ingresarTipo',authVoluntarioMiddleware, IngresarTipoVoluntario);
+router.put('/voluntarios/ingresarTipo',authVoluntarioMiddleware, IngresarTipoVoluntario);
 router.put('/voluntarios/actualizar', upload.single('foto_perfil'), authVoluntarioMiddleware, actualizarVoluntario);
 router.post('/voluntario/recomendacion', obtenerRecomendacionVoluntario)
 

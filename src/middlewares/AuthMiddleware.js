@@ -18,9 +18,12 @@ const authVoluntarioMiddleware = (req, res, next) => {
 
         req.voluntario = {
             id: decoded.id,       
-            rol_id: decoded.rol_id
+            rol_id: decoded.rol_id,
+            tipo_voluntariado : decoded.tipo_voluntariado
         };
-        console.log('ID del voluntario:', req.voluntarioId);
+        console.log('ID del voluntario:', req.voluntario.id);
+        console.log('Tipo Voluntario:', req.voluntario.tipo_voluntariado);
+
         next();
     });
 };

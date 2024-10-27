@@ -32,6 +32,23 @@ const obtenerVoluntario = async (req, res, next) => {
     }
 };
 
+const buscarVoluntario = async (req, res, next) => {
+    try {
+        const { voluntarioId } = req.params; 
+        const resultado = await db.query('SELECT * FROM voluntarios WHERE id = $1', [voluntarioId]);
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                message: 'Voluntario no encontrado'
+            });
+        }
+        return res.json(resultado.rows[0]);
+    } catch (error) {
+        console.error(error.message);
+        next(error);
+    }
+};
+
 const registroVoluntario = async (req, res, next) => {
     const {
         nombre,
@@ -193,7 +210,9 @@ const loginVoluntario = async (req, res, next) => {
             return res.status(401).json({ message: 'Contraseña u usuario incorrectos' });
         }
 
-        const token = jwt.sign({ id: voluntario.id, rol_id: voluntario.rol_id }, config.secretTokenKey, { expiresIn: '1h' });
+        const token = jwt.sign({ id: voluntario.id,
+                                 rol_id: voluntario.rol_id, 
+                                 tipo_voluntariado: voluntario.tipo }, config.secretTokenKey, { expiresIn: '1h' });
 
         res.cookie('tokenAcceso', token, {
             maxAge: 3600000
@@ -233,7 +252,7 @@ const obtenerRecomendacionVoluntario = async (req, res) => {
     Estas son las respuestas de un test de personalidad para un voluntario:
     ${responses.join(', ')}
 
-    Según las respuestas, elige la categoría en la que mejor encaja esta persona (escoge solo una):
+    Según las respuestas, elige la categoría en la que mejor encaja esta persona (no digas nada mas solo escoge una):
     Educación y Capacitación
     Salud y Bienestar
     Medioambiente y Sostenibilidad
@@ -258,7 +277,7 @@ const obtenerRecomendacionVoluntario = async (req, res) => {
     try {
         
         const responseTipo = await config.client.chat.completions.create({
-            model: 'gpt-4', 
+            model: 'gpt-4o-mini', 
             messages: [{ role: 'user', content: promptTipo }],
             max_tokens: 50, 
         });
@@ -266,7 +285,7 @@ const obtenerRecomendacionVoluntario = async (req, res) => {
         const tipo = responseTipo.choices[0].message.content.trim();
 
         const responseDescripcion = await config.client.chat.completions.create({
-            model: 'gpt-4', 
+            model: 'gpt-4o-mini', 
             messages: [{ role: 'user', content: promptDescripcion }],
             max_tokens: 200, 
         });
@@ -315,15 +334,42 @@ const IngresarTipoVoluntario = async (req, res) => {
     }
   };
   
+  const ActividadesPorVoluntario = async (req, res, next) => {
+    try {
+        const usuarioId = req.voluntario.id;
+        const todosVoluntarios = await db.query(`
+            SELECT
+                ins.actividad_id,
+                ins.voluntario_id,
+                act.nombre_actividad,
+                act.direccion,
+                act.fecha_inicio,
+                act.fecha_fin,
+                act.descripcion,
+                act.categoria,
+                act.habilitar_diploma
+            FROM inscripciones ins
+            JOIN actividades act
+            ON act.id = ins.actividad_id
+            WHERE ins.voluntario_id = $1
+            `, [usuarioId]);
+        res.json(todosVoluntarios.rows);
+    } catch (error) {
+        next(error);
+    }
+};
+
 
 module.exports = {
     obtenerVoluntarios,
     obtenerVoluntario,
+    buscarVoluntario,
     registroVoluntario,
     borrarVoluntario,
     actualizarVoluntario,
     loginVoluntario,
     perfilVoluntario,
     obtenerRecomendacionVoluntario,
-    IngresarTipoVoluntario
+    IngresarTipoVoluntario,
+    ActividadesPorVoluntario
 };

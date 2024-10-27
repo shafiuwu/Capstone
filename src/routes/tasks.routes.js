@@ -8,7 +8,10 @@ const {
     actualizarActividad,
     postularActividad,
     obtenerPostulaciones,
-    decidirPostulante
+    decidirPostulante,
+    datosPorRecomendacion,
+    verPostulaciones,
+    actividadPorOrganizacion
 } = require('../controllers/tasks.controller')
 const router = Router();
 const multer = require('multer');
@@ -31,6 +34,8 @@ const upload = multer({ storage: storage });
 
 
 //Rutas de actividades
+router.get('/actividades/organizacion', authOrganizacionMiddleware, actividadPorOrganizacion);
+router.get('/actividades/recomendacion', authVoluntarioMiddleware, datosPorRecomendacion);
 router.get('/actividades', obtenerDatos);
 router.get('/actividades/:id', obtenerDato);
 router.post('/actividades', upload.array('imagenes', 10), authOrganizacionMiddleware, crearActividad);
@@ -38,6 +43,7 @@ router.delete('/actividades/:id', borrarActividad);
 router.put('/actividades/:id', upload.array('imagenes', 10), actualizarActividad);
 router.post('/postular', authVoluntarioMiddleware, postularActividad);
 router.get('/obtenerPostulaciones', authOrganizacionMiddleware, obtenerPostulaciones);
+router.get('/verPostulaciones', authVoluntarioMiddleware, verPostulaciones);
 router.post('/postulantes/decidir', decidirPostulante);
 
 
