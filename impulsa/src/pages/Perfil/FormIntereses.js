@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 
 const FormularioIntereses = () => {
@@ -15,7 +16,7 @@ const FormularioIntereses = () => {
     pregunta10: '',
   });
 
-  const [recomendacion, setRecomendacion] = useState(null);
+  const navigate = useNavigate(); // Hook para la navegación
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -37,18 +38,20 @@ const FormularioIntereses = () => {
         body: JSON.stringify({ responses: respuestasArray }),
       });
       const data = await response.json();
-      setRecomendacion(data);
+      // Redirigir a la página de recomendación y pasar los datos
+      navigate('/recomendacion', { state: { recomendacion: data } });
     } catch (error) {
       console.error('Error al obtener la recomendación:', error);
     }
-    
   };
 
   return (
-    <div style={{ backgroundColor: '#f5f5f5' }}>
+    <div>
       <Navbar />
       <div className="container mt-5 mb-5">
-        <h2 className="display-5 text-center" style={{ marginBottom: "40px" }}>Formulario de Intereses</h2>
+        <h2 className="display-5 text-center" style={{ marginBottom: "40px" }}>
+          Formulario de Intereses
+        </h2>
         <div className="card" style={{ borderRadius: "1rem", maxWidth: "800px", margin: "0 auto" }}>
           <div className="card-body">
           <form onSubmit={handleSubmit} style={{textAlign: "center"}}>
@@ -256,15 +259,6 @@ const FormularioIntereses = () => {
                       <button type="submit" className="btn btn-dark btn-lg btn-block" style={{ width: '15%' }}>Enviar</button>
                     </div>
             </form>
-
-            {/* Mostrar la recomendación obtenida del backend */}
-            {recomendacion && (
-              <div className="mt-4">
-                <h4>Recomendación:</h4>
-                <p><strong>Categoría:</strong> {recomendacion.tipo}</p>
-                <p><strong>Descripción:</strong> {recomendacion.descripcion}</p>
-              </div>
-            )}
           </div>
         </div>
       </div>

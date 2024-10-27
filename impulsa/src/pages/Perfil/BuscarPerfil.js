@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 
+
 const PerfilVoluntario = () => {
+  const { voluntarioId } = useParams();
   const [perfil, setPerfil] = useState(null);
   const [error, setError] = useState('');
   const [rolId, setRolId] = useState(null);
@@ -25,14 +27,8 @@ const PerfilVoluntario = () => {
 
   const fetchPerfil = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/voluntarios/perfil', { withCredentials: true });
+      const response = await axios.get(`http://localhost:4000/voluntario/${voluntarioId}`);
       setPerfil(response.data);
-
-      const token = document.cookie.split('=')[1];
-      if (token) {
-        const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        setRolId(decodedToken.rol_id);
-      }
     } catch (err) {
       console.error('Error al obtener el perfil:', err);
       if (err.response?.status === 401) {
@@ -105,16 +101,6 @@ const PerfilVoluntario = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Usamos d-flex para alinear botones horizontalmente */}
-        <div className="d-flex justify-content-center mt-3">
-          <button className="btn btn-primary mx-2" onClick={irActualizarVoluntario}>Actualizar Información</button>
-          <button className="btn btn-primary mx-2" onClick={irVerPostulaciones}>Mis Postulaciones</button>
-          {/* Solo mostrar el botón de "Mis Reportes" si el rol es 2 (admin) */}
-          {rolId === 2 && (
-            <button className="btn btn-primary mx-2" onClick={irVerReportes}>Ver Reportes</button>
-          )}
         </div>
       </div>
     </div>

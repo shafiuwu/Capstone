@@ -9,17 +9,25 @@ import RegistroOrg from './pages/Organizacion/RegistroOrg';
 import Actividad from './pages/Organizacion/Actividad';
 import LoginOrg from './pages/Organizacion/LoginOrg';
 import PerfilVoluntario from './pages/perfil/PerfilVoluntario';
+import BuscarVoluntario from './pages/perfil/BuscarPerfil';
 import {ProtectedRoutes, ProtectedRoutesUser} from './components/ProtectedRoutes'; 
 import PerfilOrganizacion from './pages/Organizacion/PerfilOrganizacion';
 import Actividades from './pages/Actividades/Actividades';
+import ActividadesRecomendaciones from './pages/Actividades/ActividadesRecomendaciones';
 import ActividadDetalle from './pages/Actividades/ActividadDetalles'; 
 import ListarActividades from './pages/Organizacion/ListaActividades'
 import ActualizarOrganizacion from './pages/Organizacion/ActualizarOrganizacion'
+import ActividadesPorOrganizacion from './pages/Organizacion/ActividadesPorOrganizacion'
 import ActualizarVoluntario from './pages/perfil/ActualizarVoluntario'
 import ActualizarActividad from './pages/Actividades/ActualizarActividad';
 import Nosotros from './pages/HomePage/Nosotros';
 import FormularioIntereses from './pages/perfil/FormIntereses';
+import Recomendacion from './pages/perfil/Recomendacion'
 import BotonChatbot from './components/BotonChatbot';
+import PostulacionesVoluntario from './pages/perfil/VerPostulaciones'
+import Reportes from './pages/Admin/Reportes'
+import ActividadesPorVoluntario from './pages/perfil/ActividadesPorVoluntario'
+
 
 function App() {
   return (
@@ -36,12 +44,18 @@ function App() {
         <Route path="/perfil-organizacion" element={<PerfilOrganizacion />} />
         <Route path="/formulario-intereses" element={<FormularioIntereses />} />
         <Route path="/actividades" element={<Actividades />} />
+        <Route path="/actividades-recomendaciones" element={<ProtectedRoutesUser allowedRole={1} element={<ActividadesRecomendaciones />} />} />
         <Route path="/actividades/:id" element={<ActividadDetalle />} />
+        <Route path="/voluntario/:voluntarioId" element={<BuscarVoluntario />} />
         <Route path="/listar-postulaciones" element={<ProtectedRoutes allowedRole={3} element={<ListarActividades />} />} />
         <Route path="/actualizar-organizacion" element={<ProtectedRoutes allowedRole={3} element={<ActualizarOrganizacion />} />} />
-        <Route path="/actualizar-voluntario" element={<ProtectedRoutesUser allowedRole={1} element={<ActualizarVoluntario />} />} />
+        <Route path="/actualizar-voluntario" element={<ProtectedRoutesUser allowedRole={1 || 2} element={<ActualizarVoluntario />} />} />
         <Route path="/actualizar-actividad/:actividadId" element={<ProtectedRoutes allowedRole={3} element={<ActualizarActividad />} />} />
-
+        <Route path="/postulaciones-voluntario" element={<ProtectedRoutesUser allowedRole={1} element={<PostulacionesVoluntario />} />} />
+        <Route path="/recomendacion" element={<Recomendacion />} />
+        <Route path="/actividades-organizacion" element={<ActividadesPorOrganizacion />} />
+        <Route path="/ver-reportes" element={<ProtectedRoutesUser allowedRole={2} element={<Reportes />} />} />
+        <Route path="/actividades-voluntario" element={<ActividadesPorVoluntario />} />
       </Routes>
       <BotonChatbot />
     </Router>

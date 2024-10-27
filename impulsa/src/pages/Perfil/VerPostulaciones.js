@@ -2,11 +2,10 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from '../../components/Navbar'
-import { Link } from 'react-router-dom'; 
 
 const obtenerPostulaciones = async () => {
     try {
-        const response = await axios.get(`http://localhost:4000/obtenerPostulaciones`, {
+        const response = await axios.get(`http://localhost:4000/verPostulaciones`, {
             withCredentials: true,
         });
         return response.data; 
@@ -26,7 +25,6 @@ const Postulaciones = () => {
             try {
                 const data = await obtenerPostulaciones();
                 setPostulaciones(data); 
-                console.log(data)
             } catch (error) {
                 setError('Error al obtener postulaciones'); 
             } finally {
@@ -36,18 +34,6 @@ const Postulaciones = () => {
 
         fetchPostulaciones();
     }, []);
-
-    const handleDecision = async (id, decision) => {
-        try {
-            await axios.post(`http://localhost:4000/postulantes/decidir`, {
-                id: id,
-                decision: decision === 'aceptar' ? 'ACEPTADO' : 'RECHAZADO',
-            });
-
-        } catch (error) {
-            console.error(`Error al ${decision === 'aceptar' ? 'aceptar' : 'rechazar'} la postulación:`, error);
-        }
-    };
 
     if (loading) {
         return <div className="text-center">Cargando postulaciones...</div>; 
@@ -71,7 +57,6 @@ const Postulaciones = () => {
                                 <th>Organización</th>
                                 <th>Nombre Actividad</th>
                                 <th>Estado</th>
-                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,25 +67,6 @@ const Postulaciones = () => {
                                     <td>{postulante.nombre_organizacion}</td>
                                     <td>{postulante.nombre_actividad}</td>
                                     <td>{postulante.estado}</td>
-                                    <td>
-                                        <button 
-                                            className="btn btn-success me-2" 
-                                            onClick={() => handleDecision(postulante.id, 'aceptar')}
-                                        >
-                                            Aceptar
-                                        </button>
-                                        <button 
-                                            className="btn btn-danger" 
-                                            onClick={() => handleDecision(postulante.id, 'rechazar')}
-                                        >
-                                            Rechazar
-                                        </button>
-                                        <div className="card-footer text-center">
-                                            <Link to={`/voluntario/${postulante.voluntario_id}`} className="btn btn-primary">
-                                                Ver Detalles
-                                            </Link>
-                                        </div>
-                                    </td>
                                 </tr>
                             ))}
                         </tbody>
@@ -113,4 +79,4 @@ const Postulaciones = () => {
     );
 };
 
-export default Postulaciones;   
+export default Postulaciones;

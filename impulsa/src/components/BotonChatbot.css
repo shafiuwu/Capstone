@@ -1,29 +1,61 @@
+.chatbot-window {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.message.user {
+  text-align: right;
+  color: blue;
+}
+
+.message.assistant {
+  text-align: left;
+  color: green;
+}
+
+input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .chatbot-button {
-    position: fixed; /* Fija el botón en la posición */
-    bottom: 20px; /* Distancia desde la parte inferior */
-    right: 20px; /* Distancia desde la derecha */
-    border: none; 
-    background: none; 
-    cursor: pointer;
-    padding: 0; /* Sin padding para que la imagen ocupe todo el botón */
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
-  }
-  
-  .chat-icon {
-    width: 100px; 
-    height: 100px; 
-    border-radius: 50%; /* Hace que la imagen sea circular */
-  }
-  
-  .chatbot-window {
-    position: fixed; /* Fija la ventana del chatbot */
-    bottom: 120px; /* Para que esté justo encima del botón */
-    right: 60px; /* Alinea a la derecha */
-    width: 300px; 
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: white; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    z-index: 1000; /* Asegura que esté por encima de otros elementos */
-  }
-  
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.chat-icon {
+  width: 50px;
+  height: 50px;
+}
