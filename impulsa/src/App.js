@@ -44,14 +44,14 @@ function App() {
         <Route path="/perfil-organizacion" element={<PerfilOrganizacion />} />
         <Route path="/formulario-intereses" element={<FormularioIntereses />} />
         <Route path="/actividades" element={<Actividades />} />
-        <Route path="/actividades-recomendaciones" element={<ProtectedRoutesUser allowedRole={1} element={<ActividadesRecomendaciones />} />} />
+        <Route path="/actividades-recomendaciones" element={<ProtectedRoutesUser allowedRole={1, 2} element={<ActividadesRecomendaciones />} />} />
         <Route path="/actividades/:id" element={<ActividadDetalle />} />
         <Route path="/voluntario/:voluntarioId" element={<BuscarVoluntario />} />
         <Route path="/listar-postulaciones" element={<ProtectedRoutes allowedRole={3} element={<ListarActividades />} />} />
         <Route path="/actualizar-organizacion" element={<ProtectedRoutes allowedRole={3} element={<ActualizarOrganizacion />} />} />
-        <Route path="/actualizar-voluntario" element={<ProtectedRoutesUser allowedRole={1 || 2} element={<ActualizarVoluntario />} />} />
+        <Route path="/actualizar-voluntario" element={<ProtectedRoutesUser allowedRole={1, 2} element={<ActualizarVoluntario />} />} />
         <Route path="/actualizar-actividad/:actividadId" element={<ProtectedRoutes allowedRole={3} element={<ActualizarActividad />} />} />
-        <Route path="/postulaciones-voluntario" element={<ProtectedRoutesUser allowedRole={1} element={<PostulacionesVoluntario />} />} />
+        <Route path="/postulaciones-voluntario" element={<ProtectedRoutesUser allowedRole={1, 2} element={<PostulacionesVoluntario />} />} />
         <Route path="/recomendacion" element={<Recomendacion />} />
         <Route path="/actividades-organizacion" element={<ActividadesPorOrganizacion />} />
         <Route path="/ver-reportes" element={<ProtectedRoutesUser allowedRole={2} element={<Reportes />} />} />
