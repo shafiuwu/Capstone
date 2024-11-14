@@ -37,17 +37,19 @@ const Postulaciones = () => {
         fetchPostulaciones();
     }, []);
 
-    const handleDecision = async (id, decision) => {
+    const handleDecision = async (id, decision, email, actividadNombre) => {
         try {
             await axios.post(`http://localhost:4000/postulantes/decidir`, {
                 id: id,
                 decision: decision === 'aceptar' ? 'ACEPTADO' : 'RECHAZADO',
+                emailVoluntario: email,
+                actividadNombre: actividadNombre
             });
-
         } catch (error) {
             console.error(`Error al ${decision === 'aceptar' ? 'aceptar' : 'rechazar'} la postulación:`, error);
         }
     };
+    
 
     if (loading) {
         return <div className="text-center">Cargando postulaciones...</div>; 
@@ -75,34 +77,34 @@ const Postulaciones = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {postulaciones.map((postulante) => (
-                                <tr key={postulante.id}>
-                                    <td>{postulante.nombre} {postulante.apellido}</td>
-                                    <td>{postulante.correo}</td>
-                                    <td>{postulante.nombre_organizacion}</td>
-                                    <td>{postulante.nombre_actividad}</td>
-                                    <td>{postulante.estado}</td>
-                                    <td>
-                                        <button 
-                                            className="btn btn-success me-2" 
-                                            onClick={() => handleDecision(postulante.id, 'aceptar')}
-                                        >
-                                            Aceptar
-                                        </button>
-                                        <button 
-                                            className="btn btn-danger" 
-                                            onClick={() => handleDecision(postulante.id, 'rechazar')}
-                                        >
-                                            Rechazar
-                                        </button>
-                                        <div className="card-footer text-center">
-                                            <Link to={`/voluntario/${postulante.voluntario_id}`} className="btn btn-primary">
-                                                Ver Detalles
-                                            </Link>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
+                        {postulaciones.map((postulante) => (
+                            <tr key={postulante.id}>
+                                <td>{postulante.nombre} {postulante.apellido}</td>
+                                <td>{postulante.correo}</td>
+                                <td>{postulante.nombre_organizacion}</td>
+                                <td>{postulante.nombre_actividad}</td>
+                                <td>{postulante.estado}</td>
+                                <td>
+                                    <button 
+                                        className="btn btn-success me-2" 
+                                        onClick={() => handleDecision(postulante.id, 'aceptar', postulante.correo, postulante.nombre_actividad)} // Añadir correo aquí
+                                    >
+                                        Aceptar
+                                    </button>
+                                    <button 
+                                        className="btn btn-danger" 
+                                        onClick={() => handleDecision(postulante.id, 'rechazar', postulante.correo, postulante.nombre_actividad)} // Añadir correo aquí
+                                    >
+                                        Rechazar
+                                    </button>
+                                    <div className="card-footer text-center">
+                                        <Link to={`/voluntario/${postulante.voluntario_id}`} className="btn btn-primary">
+                                            Ver Detalles
+                                        </Link>
+                                    </div>
+                                </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
                 </div>

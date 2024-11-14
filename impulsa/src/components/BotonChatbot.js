@@ -3,10 +3,10 @@ import './BotonChatbot.css';
 
 const BotonChatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState([]); // Para almacenar los mensajes del chatbot
-    const [inputMessage, setInputMessage] = useState(''); // Para almacenar el mensaje del usuario
-    const chatbotRef = useRef(null); // Referencia para la ventana del chatbot
-    const [threadId, setThreadId] = useState(null); // Para almacenar el ID del hilo
+    const [messages, setMessages] = useState([]);
+    const [inputMessage, setInputMessage] = useState(''); 
+    const chatbotRef = useRef(null);
+    const [threadId, setThreadId] = useState(null);
 
     const toggleChatbot = () => {
         setIsOpen(!isOpen);
