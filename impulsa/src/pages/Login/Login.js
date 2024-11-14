@@ -28,11 +28,11 @@ const LoginPage = () => {
   return (
     <div style={{backgroundColor: "#f5f5f5"}}>
       <Navbar />
-      <section className="vh-100">
+      <section className="vh-100" style={{backgroundColor: "#f5f5f5"}}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col col-xl-10">
-              <div className="card" style={{ borderRadius: '1rem'}}>
+            <div className="col col-xl-10" style={{backgroundColor: "#f5f5f5"}}>
+              <div className="card" style={{ borderRadius: '1rem', marginBottom: "100px"}}>
                 <div className="row g-0">
                   <div className="col-md-6 col-lg-5 d-none d-md-block">
                     <img src="/images/card2.jpg" alt="login form" className="img-fluid"

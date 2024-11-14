@@ -15,8 +15,8 @@ const Footer = () => {
                             <p className="link-dark fw-normal" style={{ fontSize: "20px", paddingTop: "20px"}}>
                                 9 8452 4856
                             </p>
-                            <a className="link-dark fw-normal" style={{ fontSize: "20px"}}>
-                                contacto@impulsa.com
+                            <a className="link-dark fw-normal" style={{ fontSize: "20px"}}>          
+                                teamimpulsa02@gmail.com
                             </a>
                             </p>
                         </div>

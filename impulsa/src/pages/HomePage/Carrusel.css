@@ -6,7 +6,7 @@
 
 .carruselOrg{
     display: flex;
-    width: 600px;
+    width: 800px;
     height: 430px;
     margin: 0 auto;
 }
@@ -17,6 +17,7 @@
     object-fit: cover;
     opacity: .8;
     transition: .5 ease;
+    border-radius: 10px;
 }
 
 .carruselOrg img:hover{
