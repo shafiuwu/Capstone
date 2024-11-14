@@ -1,0 +1,43 @@
+.navbar {
+    position: relative;
+    top: 0; /* Para que siempre esté arriba */
+    z-index: 10; /* Mucho más alto que el overlay */
+}
+
+.custom-navbar {
+    height: 80px; /* Ajusta la altura como desees */
+    display: flex; /* Asegura que el contenido se alinee adecuadamente */
+    align-items: center; /* Centra verticalmente el contenido */
+    border: none;
+}
+
+.espacio {
+    margin-right: 20px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -250px; /* Oculta el menú lateral inicialmente */
+    width: 250px; /* Ancho del menú lateral */
+    height: 77%;
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco con un poco de transparencia */
+    transition: right 0.3s ease; /* Transición suave al abrir/cerrar */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.sidebar.active {
+    right: 0; /* Mueve el menú lateral a la vista */
+}
+
+.sidebar a {
+    font-size: 24px !important;
+    display: block; /* Cada enlace ocupa una línea completa */
+    padding: 15px; /* Espaciado en los enlaces */
+    color: black; /* Color del texto */
+    text-decoration: none; /* Sin subrayado */
+}
+
+.sidebar a:hover {
+    background: #f0f0f0; /* Color de fondo al pasar el mouse */
+}

@@ -8,8 +8,8 @@ import HomePage from './pages/HomePage/HomePage';
 import RegistroOrg from './pages/Organizacion/RegistroOrg';
 import Actividad from './pages/Organizacion/Actividad';
 import LoginOrg from './pages/Organizacion/LoginOrg';
-import PerfilVoluntario from './pages/perfil/PerfilVoluntario';
-import BuscarVoluntario from './pages/perfil/BuscarPerfil';
+import PerfilVoluntario from './pages/Perfil/PerfilVoluntario';
+import BuscarVoluntario from './pages/Perfil/BuscarPerfil';
 import {ProtectedRoutes, ProtectedRoutesUser} from './components/ProtectedRoutes'; 
 import PerfilOrganizacion from './pages/Organizacion/PerfilOrganizacion';
 import Actividades from './pages/Actividades/Actividades';
@@ -18,15 +18,15 @@ import ActividadDetalle from './pages/Actividades/ActividadDetalles';
 import ListarActividades from './pages/Organizacion/ListaActividades'
 import ActualizarOrganizacion from './pages/Organizacion/ActualizarOrganizacion'
 import ActividadesPorOrganizacion from './pages/Organizacion/ActividadesPorOrganizacion'
-import ActualizarVoluntario from './pages/perfil/ActualizarVoluntario'
+import ActualizarVoluntario from './pages/Perfil/ActualizarVoluntario'
 import ActualizarActividad from './pages/Actividades/ActualizarActividad';
 import Nosotros from './pages/HomePage/Nosotros';
-import FormularioIntereses from './pages/perfil/FormIntereses';
-import Recomendacion from './pages/perfil/Recomendacion'
+import FormularioIntereses from './pages/Perfil/FormIntereses';
+import Recomendacion from './pages/Perfil/Recomendacion'
 import BotonChatbot from './components/BotonChatbot';
-import PostulacionesVoluntario from './pages/perfil/VerPostulaciones'
+import PostulacionesVoluntario from './pages/Perfil/VerPostulaciones'
 import Reportes from './pages/Admin/Reportes'
-import ActividadesPorVoluntario from './pages/perfil/ActividadesPorVoluntario'
+import ActividadesPorVoluntario from './pages/Perfil/ActividadesPorVoluntario'
 
 
 function App() {

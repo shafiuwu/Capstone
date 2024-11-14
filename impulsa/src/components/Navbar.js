@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Cookies from 'js-cookie'; // Asegúrate de tener esta librería instalada
+import Cookies from 'js-cookie';
+import './Navbar.css';
 
 const Navbar = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isOrganizacion, setIsOrganizacion] = useState(false);
     const menuRef = useRef(null);
-    const navigate = useNavigate(); // Usa useNavigate aquí
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         const tokenVoluntario = Cookies.get('tokenAcceso');
@@ -60,10 +61,10 @@ const Navbar = () => {
             <div className="container-fluid">
                 <div className={`collapse navbar-collapse ${isMenuOpen ? 'show' : ''}`} id="navbarNavAltMarkup">
                     <div className="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll" style={{ "--bs-scroll-height": "100px" }}>
-                        <Link to="/" className="nav-link actives espacio fs-3 fw-light text-body-emphasis" aria-current="page">Inicio</Link>
-                        <a className="nav-link actives espacio fs-3 fw-light text-body-emphasis" aria-current="page" href="/Nosotros">Nosotros</a>
-                        <Link to="/actividades" className="nav-link espacio fs-3 fw-light text-body-emphasis">Voluntariados</Link>
-                        <button className="nav-link btn fs-4" onClick={toggleMenu} aria-label="Open menu">
+                        <Link to="/" className="nav-link actives espacio fs-4 fw-light text-body-emphasis" aria-current="page">Inicio</Link>
+                        <a className="nav-link actives espacio fs-4 fw-light text-body-emphasis" aria-current="page" href="/Nosotros">Nosotros</a>
+                        <Link to="/actividades" className="nav-link espacio fs-4 fw-light text-body-emphasis">Voluntariados</Link>
+                        <button className="nav-link btn fs-5" onClick={toggleMenu} aria-label="Open menu">
                             <span className="navbar-toggler-icon"></span>
                         </button>
                     </div>

@@ -32,15 +32,16 @@
 }
 
 .texto {
-    font-size: 2rem;
+    font-size: 1.7rem;
     font-weight: 700;
     color: #333;
     margin: 50px;
-    padding: 0px 300px 0px 300px;
+    padding: 50px 300px 0px 300px;
 }
 
 .contenido img {
-    width: 150px;  /* Ajusta el tamaño según tus necesidades */
+    width: 110px;  /* Ajusta el tamaño según tus necesidades */
     height: auto;  /* Mantiene la proporción original */
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 50px;
 }

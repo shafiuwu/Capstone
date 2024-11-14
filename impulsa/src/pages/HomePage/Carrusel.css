@@ -1,0 +1,27 @@
+.containerCarrusel {
+    display: flex;
+    justify-content: center; /* Centra el carrusel horizontalmente */
+}
+
+
+.carruselOrg{
+    display: flex;
+    width: 600px;
+    height: 430px;
+    margin: 0 auto;
+}
+
+.carruselOrg img{
+    width: 0;
+    flex-grow: 1;
+    object-fit: cover;
+    opacity: .8;
+    transition: .5 ease;
+}
+
+.carruselOrg img:hover{
+    cursor: crosshair;
+    width: 300px;
+    opacity: 1;
+    filter: contrast(120%);
+}
