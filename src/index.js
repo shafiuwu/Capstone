@@ -12,6 +12,8 @@ const organizacionesRoutes = require('./routes/organizaciones.routes');
 const chatbot = require('./routes/chatbot.routes')
 const reportes = require('./routes/reportes.routes')
 const diploma = require('./routes/diploma.routes')
+const payRoutes = require('./routes/pay.routes'); 
+
 
 app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 app.use(morgan('dev'))
@@ -29,6 +31,7 @@ app.use(organizacionesRoutes)
 app.use(chatbot)
 app.use(reportes)
 app.use(diploma)
+app.use(payRoutes)
 
 
 app.listen(4000)

@@ -1,9 +1,29 @@
 const db = require('../db')
 const { v4: uuidv4 } = require('uuid');
+const { enviarCorreo } = require('../services/email.services');
 
 const obtenerDatos =  async(req, res) => {
     try{
     todasActividades = await db.query('SELECT * FROM actividades;')
+    res.json(todasActividades.rows)
+    }catch(error){
+        next(error)
+    }
+};
+
+const datosRandom =  async(req, res) => {
+    try{
+    todasActividades = await db.query(`
+    SELECT id, nombre_actividad, organizacion_a_cargo, 
+    direccion, requisitos, 
+    fecha_inicio, fecha_fin, 
+    descripcion, imagenes, organizacion_id, 
+    categoria, habilitar_diploma
+	FROM public.actividades
+	ORDER BY RANDOM()
+	LIMIT 3;
+
+        `)
     res.json(todasActividades.rows)
     }catch(error){
         next(error)
@@ -290,35 +310,53 @@ const verPostulaciones = async (req, res, next) => {
 };
 
 const decidirPostulante = async (req, res) => {
-    const { id, decision } = req.body;
+    const { id, decision, emailVoluntario, actividadNombre } = req.body;
 
     try {
+        // Actualizar estado en la base de datos
         const query = `
             UPDATE inscripciones 
             SET estado = $1 
             WHERE id = $2
-            RETURNING *; 
+            RETURNING *;
         `;
-        
-        // Asignar el valor adecuado para el estado
-        const estado = decision === 'ACEPTADO' ? 'ACEPTADO' : 'RECHAZADO'; 
+
+        const estado = decision === 'ACEPTADO' ? 'ACEPTADO' : 'RECHAZADO';
         const values = [estado, id];
-
-        console.log("Consulta SQL:", query, "Valores:", values); // Log para depuración
-
         const result = await db.query(query, values);
 
-        res.status(200).json(result.rows); 
+        // Preparar asunto y contenido HTML del correo según la decisión
+        const subject = decision === 'ACEPTADO' ? 'Felicidades, has sido aceptado' : 'Lo sentimos, tu postulación fue rechazada';
+        const htmlContent = decision === 'ACEPTADO'
+            ? `<h1 style="color: #4CAF50;">¡Felicidades!</h1>
+               <p>Nos complace informarte que has sido <strong>aceptado</strong> para la actividad <em>${actividadNombre}</em>.</p>
+               <p>Estamos emocionados de darte la bienvenida y esperamos que esta experiencia sea enriquecedora para ti.</p>
+               <p>¡Nos vemos pronto!</p>`
+            : `<h1 style="color: #FF5733;">Lo sentimos</h1>
+               <p>Tu postulación para la actividad <em>${actividadNombre}</em> no fue <strong>aceptada</strong> en esta ocasión.</p>
+               <p>Apreciamos tu interés y te animamos a que te postules en futuras actividades.</p>
+               <p>Gracias por tu comprensión.</p>`;
+
+        // Enviar correo al voluntario con contenido HTML
+        await enviarCorreo(emailVoluntario, subject, htmlContent);
+
+        // Enviar respuesta de éxito al cliente
+        res.status(200).json({ message: 'Decisión enviada con éxito', data: result.rows });
+
     } catch (error) {
-        console.error("Error al decidir sobre el postulante:", error);
-        res.status(500).json({ error: "Error al decidir sobre el postulante" });
+        console.error('Error al decidir sobre el postulante o al enviar el correo:', error);
+        res.status(500).send('Error al decidir sobre el postulante');
     }
 };
+
+
+
   
 
 module.exports = {
     obtenerDatos,
     obtenerDato,
+    datosRandom,
     crearActividad,
     borrarActividad,
     actualizarActividad,

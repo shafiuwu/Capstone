@@ -11,7 +11,8 @@ const {
     decidirPostulante,
     datosPorRecomendacion,
     verPostulaciones,
-    actividadPorOrganizacion
+    actividadPorOrganizacion,
+    datosRandom
 } = require('../controllers/tasks.controller')
 const router = Router();
 const multer = require('multer');
@@ -36,6 +37,7 @@ const upload = multer({ storage: storage });
 //Rutas de actividades
 router.get('/actividades/organizacion', authOrganizacionMiddleware, actividadPorOrganizacion);
 router.get('/actividades/recomendacion', authVoluntarioMiddleware, datosPorRecomendacion);
+router.get('/actividades/random', datosRandom);
 router.get('/actividades', obtenerDatos);
 router.get('/actividades/:id', obtenerDato);
 router.post('/actividades', upload.array('imagenes', 10), authOrganizacionMiddleware, crearActividad);
