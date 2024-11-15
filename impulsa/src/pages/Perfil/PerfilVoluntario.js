@@ -70,23 +70,25 @@ const PerfilVoluntario = () => {
   };
 
   return (
-    <div>
-      <Navbar />
-      <div className="container mt-5 d-flex flex-column align-items-center">
-        <div className="card p-4 shadow-sm" style={{ maxWidth: "600px", width: "100%" }}>
-          <div className="row g-0">
-            <div className="col-md-4 d-flex align-items-center justify-content-center">
+      <div>
+        <Navbar />
+        <div className="container-fluid mt-5">
+          <div className="row g-4">
+            {/* Imagen de perfil en una columna */}
+            <div className="col-md-3 d-flex justify-content-center align-items-center">
               <img 
-                src={imageUrl}
+                src={imageUrl} 
                 alt="Foto de perfil" 
-                className="img-fluid rounded-circle" 
-                style={{ maxWidth: "150px" }} 
+                className="img-fluid rounded-circle border border-3 border-primary" 
+                style={{ width: "210px", height: "210px", objectFit: "cover" }}
               />
             </div>
-            <div className="col-md-8">
-              <div className="card-body">
-                <h3 className="card-title">Bienvenido, {capitalizarPrimeraLetra(perfil.nombre)}</h3>
-                <ul className="list-group list-group-flush mb-3">
+
+            {/* Información de perfil en una columna más amplia */}
+            <div className="col-md-9">
+              <div className="px-4">
+                <h1 className="display-5 mb-3">Bienvenido, {capitalizarPrimeraLetra(perfil.nombre)}</h1>
+                <ul className="list-group list-group-flush">
                   <li className="list-group-item"><strong>Nombre:</strong> {capitalizarPrimeraLetra(perfil.nombre)}</li>
                   <li className="list-group-item"><strong>Apellido:</strong> {capitalizarPrimeraLetra(perfil.apellido)}</li>
                   <li className="list-group-item"><strong>Correo:</strong> {perfil.correo}</li>
@@ -97,7 +99,7 @@ const PerfilVoluntario = () => {
                   <li className="list-group-item"><strong>Preferencia de voluntariado:</strong> {capitalizarPrimeraLetra(perfil.tipo)}</li>
                   <li className="list-group-item">
                     <strong>Estado:</strong> 
-                    <span className={`badge ${perfil.estado ? "bg-success" : "bg-secondary"}`}>
+                    <span className={`badge ${perfil.estado ? "bg-success" : "bg-secondary"} ms-2`}>
                       {perfil.estado ? "Activo" : "Inactivo"}
                     </span>
                   </li>
@@ -105,19 +107,18 @@ const PerfilVoluntario = () => {
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Usamos d-flex para alinear botones horizontalmente */}
-        <div className="d-flex justify-content-center mt-3">
-          <button className="btn btn-primary mx-2" onClick={irActualizarVoluntario}>Actualizar Información</button>
-          <button className="btn btn-primary mx-2" onClick={irVerPostulaciones}>Mis Postulaciones</button>
-          {/* Solo mostrar el botón de "Mis Reportes" si el rol es 2 (admin) */}
-          {rolId === 2 && (
-            <button className="btn btn-primary mx-2" onClick={irVerReportes}>Ver Reportes</button>
-          )}
+          {/* Botones de acción en la parte inferior, con un espacio centralizado */}
+          <div className="d-flex justify-content-center mt-4 px-4" style={{marginBottom: "50px"}}>
+            <button className="btn btn-outline-primary me-2" onClick={irActualizarVoluntario}>Actualizar Información</button>
+            <button className="btn btn-outline-primary me-2" onClick={irVerPostulaciones}>Mis Postulaciones</button>
+            {rolId === 2 && (
+              <button className="btn btn-outline-primary" onClick={irVerReportes}>Ver Reportes</button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
   );
 };
 

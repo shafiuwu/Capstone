@@ -46,44 +46,48 @@ const PerfilOrganizacion = () => {
 
   return (
     <div>
-      <Navbar />
-    <div className="container mt-5 d-flex flex-column align-items-center">
-      <div className="card p-4 shadow-sm" style={{ maxWidth: "600px", width: "100%" }}>
-        <div className="row g-0">
-          <div className="col-md-4 d-flex align-items-center justify-content-center">
-            <img 
-              src={imageUrl} 
-              alt="Foto de perfil" 
-              className="img-fluid rounded-circle" 
-              style={{ maxWidth: "150px" }} 
-            />
-          </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h3 className="card-title">Bienvenido {perfil.nombre}</h3>
-              <ul className="list-group list-group-flush mb-3">
-                <li className="list-group-item"><strong>Nombre:</strong> {perfil.nombre}</li>
-                <li className="list-group-item"><strong>Tipo Organización:</strong> {perfil.tipo_organizacion}</li>
-                <li className="list-group-item"><strong>Correo:</strong> {perfil.contacto_email}</li>
-                <li className="list-group-item"><strong>Teléfono:</strong> {perfil.contacto_telefono}</li>
-                <li className="list-group-item"><strong>Descripción:</strong> {perfil.descripcion}</li>
-                <li className="list-group-item"><strong>Estado:</strong> 
-                  <span className={`badge ${perfil.verificado ? "bg-success" : "bg-secondary"}`}>
-                    {perfil.verificado ? "Verificado" : "No Verificado"}
-                  </span>
-                </li>
-              </ul>
-            </div>
-          </div>
+  <Navbar />
+  <div className="container-fluid mt-5">
+    <div className="row g-4">
+      {/* Imagen de perfil en la columna izquierda */}
+      <div className="col-md-3 d-flex justify-content-center align-items-start">
+        <img 
+          src={imageUrl} 
+          alt="Foto de perfil" 
+          className="img-fluid rounded-circle border border-3 border-primary" 
+          style={{ width: "180px", height: "180px", objectFit: "cover" }}
+        />
+      </div>
+
+      {/* Información de la organización en la columna derecha */}
+      <div className="col-md-9">
+        <div className="px-4">
+          <h1 className="display-5 mb-3">Bienvenido, {perfil.nombre}</h1>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item"><strong>Nombre:</strong> {perfil.nombre}</li>
+            <li className="list-group-item"><strong>Tipo de Organización:</strong> {perfil.tipo_organizacion}</li>
+            <li className="list-group-item"><strong>Correo:</strong> {perfil.contacto_email}</li>
+            <li className="list-group-item"><strong>Teléfono:</strong> {perfil.contacto_telefono}</li>
+            <li className="list-group-item"><strong>Descripción:</strong> {perfil.descripcion}</li>
+            <li className="list-group-item">
+              <strong>Estado:</strong> 
+              <span className={`badge ${perfil.verificado ? "bg-success" : "bg-secondary"} ms-2`}>
+                {perfil.verificado ? "Verificado" : "No Verificado"}
+              </span>
+            </li>
+          </ul>
         </div>
       </div>
-      <div className="mt-3">
-        <button className="btn btn-primary" onClick={irAActualizarOrganizacion}>Actualizar Información</button>
-      </div>      <div className="mt-3">
-        <button className="btn btn-primary" onClick={irListarActividades}>Ver postulantes</button>
-      </div>
     </div>
+
+    {/* Botones de acción en la parte inferior, alineados a la izquierda */}
+    <div className="d-flex justify-content-center mt-4 px-4">
+      <button className="btn btn-outline-primary me-2" onClick={irAActualizarOrganizacion}>Actualizar Información</button>
+      <button className="btn btn-outline-primary" onClick={irListarActividades}>Ver Postulantes</button>
     </div>
+  </div>
+</div>
+
   );
 };
 
