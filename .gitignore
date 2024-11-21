@@ -1,0 +1,20 @@
+# Ignorar archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de configuración del entorno
+.env
+.env.local
+
+# Ignorar carpetas de dependencias
+node_modules/
+vendor/
+
+# Ignorar archivos compilados
+*.log
+*.out
+*.pyc
+
+# Ignorar carpetas de compilación
+dist/
+build/
