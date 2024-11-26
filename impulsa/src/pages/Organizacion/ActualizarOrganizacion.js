@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from "../../components/Navbar";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const ActualizarOrganizacion = () => {
   const [organizacion, setOrganizacion] = useState({
@@ -80,86 +82,100 @@ const ActualizarOrganizacion = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4">Actualizar Organización</h2>
-      {mensaje && <div className="alert alert-info">{mensaje}</div>}
-      <form onSubmit={handleSubmit} className="bg-light p-4 rounded">
-        <div className="mb-3">
-          <label className="form-label">Nombre:</label>
-          <input
-            type="text"
-            name="nombre"
-            value={organizacion.nombre}
-            onChange={handleChange}
-            required
-            className="form-control"
-          />
+    <div>
+      <Navbar />
+      <div className="container mt-4">
+        <div className="d-flex align-items-center mb-4">
+          <button 
+            className="btn btn-outline-secondary me-3"
+            onClick={() => window.history.back()}
+            title="Volver"
+          >
+          <i className="bi bi-arrow-left"></i> {/* Asegúrate de tener Bootstrap Icons */}
+          </button>
+          <h2 className="mb-0 mx-auto text-center display-6" style={{paddingTop: "30px", paddingBottom: "25px"}}>Actualizar Organización</h2>
         </div>
-        <div className="mb-3">
-          <label className="form-label">Tipo de Organización:</label>
-          <input
-            type="text"
-            name="tipo_organizacion"
-            value={organizacion.tipo_organizacion}
-            onChange={handleChange}
-            required
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Email de Contacto:</label>
-          <input
-            type="email"
-            name="contacto_email"
-            value={organizacion.contacto_email}
-            onChange={handleChange}
-            required
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Teléfono de Contacto:</label>
-          <input
-            type="text"
-            name="contacto_telefono"
-            value={organizacion.contacto_telefono}
-            onChange={handleChange}
-            required
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Descripción:</label>
-          <textarea
-            name="descripcion"
-            value={organizacion.descripcion}
-            onChange={handleChange}
-            required
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Contraseña (opcional):</label>
-          <input
-            type="password"
-            name="contrasena"
-            placeholder="Ingrese nueva contraseña (si desea cambiarla)"
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Foto de la Organización (dejar vacío para mantener la actual):</label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            className="form-control"
-          />
-          {organizacion.foto_empresa && <p className="mt-2">Imagen actual: {organizacion.foto_empresa}</p>} {/* Mostrar la imagen actual */}
-        </div>
-        <button type="submit" className="btn btn-primary">Actualizar Organización</button>
-      </form>
+        {mensaje && <div className="alert alert-info">{mensaje}</div>}
+        <form onSubmit={handleSubmit} className="bg-light p-4 rounded shadow-sm">
+          <div className="mb-3">
+            <label className="form-label">Nombre:</label>
+            <input
+              type="text"
+              name="nombre"
+              value={organizacion.nombre}
+              onChange={handleChange}
+              required
+              className="form-control"
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Tipo de Organización:</label>
+            <input
+              type="text"
+              name="tipo_organizacion"
+              value={organizacion.tipo_organizacion}
+              onChange={handleChange}
+              required
+              className="form-control"
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Email de Contacto:</label>
+            <input
+              type="email"
+              name="contacto_email"
+              value={organizacion.contacto_email}
+              onChange={handleChange}
+              required
+              className="form-control"
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Teléfono de Contacto:</label>
+            <input
+              type="text"
+              name="contacto_telefono"
+              value={organizacion.contacto_telefono}
+              onChange={handleChange}
+              required
+              className="form-control"
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Descripción:</label>
+            <textarea
+              name="descripcion"
+              value={organizacion.descripcion}
+              onChange={handleChange}
+              required
+              className="form-control"
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Contraseña (opcional):</label>
+            <input
+              type="password"
+              name="contrasena"
+              placeholder="Ingrese nueva contraseña (si desea cambiarla)"
+              onChange={handleChange}
+              className="form-control"
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Foto de la Organización (dejar vacío para mantener la actual):</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className="form-control"
+            />
+            {organizacion.foto_empresa && <p className="mt-2">Imagen actual: {organizacion.foto_empresa}</p>}
+          </div>
+          <button type="submit" className="btn btn-primary w-100 mx-auto d-block" style={{ maxWidth: '200px' }}>
+            Actualizar Organización
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

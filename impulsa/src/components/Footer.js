@@ -3,7 +3,7 @@ import './Footer.css'
 
 const Footer = () => {
     return (
-        <footer style={{ backgroundColor: "#f5f5f5", color: "black" }}>
+        <footer style={{ color: "black" }}>
             <hr style={{ border: '1px solid gray', margin: '20px 0' }} />
             <div className="p-3 mb-2 mt-1">
                 <div className="container">

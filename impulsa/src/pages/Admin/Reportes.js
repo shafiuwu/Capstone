@@ -58,52 +58,71 @@ const Reportes = () => {
     }
 
     return (
-        <div className="container mt-4">
+        <div>
             <Navbar />
-            <h2 className="text-center mb-4">Reportes</h2>
-            {reportes.length > 0 ? (
+            <div className="container mt-4">
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2 className="text-center flex-grow-1 display-6">Reportes</h2>
+                </div>
+                {reportes.length > 0 ? (
                 <div className="table-responsive">
-                    <table className="table table-bordered table-striped">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th>Actividad</th>
-                                <th>Organización</th>
-                                <th>Categoría</th>
-                                <th>Descripción</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {reportes.map((reporte) => (
-                                <tr key={reporte.id}>
-                                    <td>{reporte.nombre_actividad}</td>
-                                    <td>{reporte.organizacion_a_cargo}</td>
-                                    <td>{reporte.categoria}</td>
-                                    <td>{reporte.descripcion}</td>
-                                    <td>{reporte.estado ? 'Revisado' : 'Pendiente'}</td>
-                                    <td>
-                                        <Link to={`/actividades/${reporte.id_actividad}`}>
-                                            <button className="btn btn-primary">
-                                                Ver Actividad
-                                            </button>
-                                        </Link>
-                                        <button 
-                                            className="btn btn-success me-2" 
-                                            onClick={() => handleDecision(reporte.id, 'aceptar')}
-                                        >
-                                            Revisado
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
+                    <table className="table table-hover align-middle">
+                    <thead className="table-dark text-center">
+                        <tr>
+                        <th>Actividad</th>
+                        <th>Organización</th>
+                        <th>Categoría</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {reportes.map((reporte) => (
+                        <tr key={reporte.id} className="text-center">
+                            <td>{reporte.nombre_actividad}</td>
+                            <td>{reporte.organizacion_a_cargo}</td>
+                            <td>{reporte.categoria}</td>
+                            <td className="text-wrap" style={{ maxWidth: "300px" }}>
+                                {reporte.descripcion}
+                            </td>
+                            <td>
+                            <span
+                                className={`badge ${
+                                reporte.estado ? "bg-success" : "bg-warning text-dark"
+                                }`}
+                            >
+                                {reporte.estado ? "Revisado" : "Pendiente"}
+                            </span>
+                            </td>
+                            <td className="text-center">
+                            <div className="d-flex justify-content-center gap-2">
+                                <Link to={`/actividades/${reporte.id_actividad}`}>
+                                <button className="btn btn-primary btn-sm">
+                                    Ver Actividad
+                                </button>
+                                </Link>
+                                <button
+                                className="btn btn-success btn-sm"
+                                onClick={() => handleDecision(reporte.id, "aceptar")}
+                                >
+                                Revisado
+                                </button>
+                            </div>
+                            </td>
+                        </tr>
+                        ))}
+                    </tbody>
                     </table>
                 </div>
-            ) : (
-                <p className="text-center">No hay reportes disponibles.</p>
-            )}
+                ) : (
+                <div className="alert alert-info text-center mt-4">
+                    No hay reportes disponibles.
+                </div>
+                )}
+            </div>
         </div>
+
     );
 };
 

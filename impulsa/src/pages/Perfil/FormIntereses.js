@@ -53,7 +53,7 @@ const FormularioIntereses = () => {
           Formulario de Intereses
         </h2>
         <div className="card" style={{ borderRadius: "1rem", maxWidth: "800px", margin: "0 auto" }}>
-          <div className="card-body">
+          <div className="card-body" style={{backgroundColor: "#f5f5f5"}}>
           <form onSubmit={handleSubmit} style={{textAlign: "center"}}>
                     <div className="mb-4">
                         <label className="form-label fs-5">1. ¿Cómo prefieres pasar tu tiempo libre?</label>

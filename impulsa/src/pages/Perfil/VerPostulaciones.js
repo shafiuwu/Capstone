@@ -44,37 +44,48 @@ const Postulaciones = () => {
     }
 
     return (
-        <div className="container mt-4">
+        <div style={{minHeight: "100vh"}}>
             <Navbar />
-            <h2 className="text-center mb-4">Postulaciones</h2>
-            {postulaciones.length > 0 ? (
-                <div className="table-responsive">
-                    <table className="table table-bordered table-striped">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Correo</th>
-                                <th>Organización</th>
-                                <th>Nombre Actividad</th>
-                                <th>Estado</th>
-                            </tr>
+            <div className="container mt-4">
+                <h2 className="text-center mb-4 display-5">Postulaciones</h2>
+                {postulaciones.length > 0 ? (
+                    <div className="table-responsive">
+                    <table className="table table-bordered table-hover table-striped table-sm">
+                        <thead className="table-dark text-center">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Organización</th>
+                            <th>Nombre Actividad</th>
+                            <th>Estado</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {postulaciones.map((postulante) => (
-                                <tr key={postulante.id}>
-                                    <td>{postulante.nombre} {postulante.apellido}</td>
-                                    <td>{postulante.correo}</td>
-                                    <td>{postulante.nombre_organizacion}</td>
-                                    <td>{postulante.nombre_actividad}</td>
-                                    <td>{postulante.estado}</td>
-                                </tr>
-                            ))}
+                        {postulaciones.map((postulante, index) => (
+                            <tr key={postulante.id} className={index % 2 === 0 ? "bg-light" : ""}>
+                            <td>{postulante.nombre} {postulante.apellido}</td>
+                            <td>{postulante.correo}</td>
+                            <td>{postulante.nombre_organizacion}</td>
+                            <td>{postulante.nombre_actividad}</td>
+                            <td className="text-center">
+                                <span 
+                                className={`badge ${
+                                    postulante.estado === "Aprobado" ? "bg-success" : 
+                                    postulante.estado === "Rechazado" ? "bg-danger" : "bg-secondary"
+                                }`}
+                                >
+                                {postulante.estado}
+                                </span>
+                            </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
-                </div>
-            ) : (
-                <p className="text-center">No hay postulaciones.</p>
-            )}
+                    </div>
+                ) : (
+                    <p className="text-center">No hay postulaciones.</p>
+                )}
+            </div>
         </div>
     );
 };

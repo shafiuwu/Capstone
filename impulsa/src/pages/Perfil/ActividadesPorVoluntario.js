@@ -74,49 +74,67 @@ const Actividades = () => {
     }
 
     return (
-        <div className="container mt-4">
+        <div>
             <Navbar />
-            <h2 className="text-center mb-4">Actividades por Organización</h2>
-            <p className="text-center mb-4">En caso de fallo vuelva a interta descargar</p>
-            {actividades.length > 0 ? (
-                <div className="table-responsive">
-                    <table className="table table-bordered table-striped">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th>Nombre de la Actividad</th>
-                                <th>Fecha Inicio</th>
-                                <th>Fecha Final</th>
-                                <th>Descripción</th>
-                                <th>Diploma</th>
-                            </tr>
+            <div className="container mt-4">
+                <div className="text-center mb-4">
+                    <h2 className="display-6" style={{paddingBottom: "20px"}}>Actividades por Organización</h2>
+                    <p className="text-muted fst-italic" style={{paddingBottom: "15px"}}>
+                    Si ocurre un fallo, por favor intente descargar nuevamente.
+                    </p>
+                </div>
+
+                {actividades.length > 0 ? (
+                    <div className="table-responsive">
+                    <table className="table table-hover align-middle">
+                        <thead className="table-dark text-center">
+                        <tr>
+                            <th>Nombre de la Actividad</th>
+                            <th>Fecha Inicio</th>
+                            <th>Fecha Final</th>
+                            <th>Descripción</th>
+                            <th>Diploma</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            {actividades.map((inscripcion) => (
-                                <tr key={inscripcion.id}>
-                                    <td>{inscripcion.nombre_actividad}</td>
-                                    <td>{inscripcion.fecha_inicio}</td>
-                                    <td>{inscripcion.fecha_fin}</td>
-                                    <td>{inscripcion.descripcion}</td>
-                                    <td>
-                                        {inscripcion.habilitar_diploma === 'HABILITADO' ? (
-                                            <button 
-                                                className="btn btn-primary"
-                                                onClick={() => descargarDiploma(inscripcion.voluntario_id, inscripcion.actividad_id)}
-                                            >
-                                                Descargar Diploma
-                                            </button>
-                                        ) : (
-                                            <p className="text-center">Aun no disponible</p>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
+                        {actividades.map((inscripcion) => (
+                            <tr key={inscripcion.id} className="text-center">
+                            <td>{inscripcion.nombre_actividad}</td>
+                            <td>{inscripcion.fecha_inicio}</td>
+                            <td>{inscripcion.fecha_fin}</td>
+                            <td className="text-wrap" style={{ maxWidth: "300px" }}>
+                                {inscripcion.descripcion}
+                            </td>
+                            <td>
+                                {inscripcion.habilitar_diploma === "HABILITADO" ? (
+                                <button
+                                    className="btn btn-success btn-sm"
+                                    onClick={() =>
+                                    descargarDiploma(
+                                        inscripcion.voluntario_id,
+                                        inscripcion.actividad_id
+                                    )
+                                    }
+                                >
+                                    Descargar Diploma
+                                </button>
+                                ) : (
+                                <span className="text-muted fst-italic">
+                                    Aún no disponible
+                                </span>
+                                )}
+                            </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
-                </div>
-            ) : (
-                <p className="text-center">No hay actividades.</p>
-            )}
+                    </div>
+                ) : (
+                    <div className="alert alert-info text-center">
+                    No hay actividades disponibles.
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

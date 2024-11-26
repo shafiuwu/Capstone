@@ -32,7 +32,7 @@ const Actividades = () => {
     <div className="actividades-page">
       <Navbar />
       <div className="container mt-5">
-        <h1 className="text-center mb-5">Actividades Disponibles</h1>
+        <h1 className="text-center mb-5 display-5">Actividades Disponibles</h1>
         <div className="row">
           {actividades.map((actividad) => (
             <div className="col-md-6 col-lg-4 mb-4" key={actividad.id}>

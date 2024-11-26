@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar";
 
 const Nosotros = () => {
     return (
-        <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+        <div >
         <Navbar />
     
         {/* Sección Nosotros */}
@@ -47,21 +47,21 @@ const Nosotros = () => {
             <h2 className="text-center fw-bold mb-5 display-6" style={{ color: "#333", paddingTop: "30px"}}>Nuestros Valores</h2>
             <div className="row">
                 <div className="col-md-4">
-                    <div className="card border-0 shadow-sm p-4 text-center">
+                    <div className="card border-0 shadow-sm p-4 text-center" style={{backgroundColor: "#f5f5f5"}}>
                         <i className="bi bi-people" style={{ fontSize: "40px", color: "#007bff" }}></i>
                         <h3 className="fw-bold mt-3" style={{ color: "#333" }}>Solidaridad</h3>
                         <p className="lead" style={{ color: "#555" }}>Creemos en la ayuda mutua y en la importancia de crear un mundo más justo.</p>
                     </div>
                 </div>
                 <div className="col-md-4">
-                    <div className="card border-0 shadow-sm p-4 text-center">
+                    <div className="card border-0 shadow-sm p-4 text-center" style={{backgroundColor: "#f5f5f5"}}>
                         <i className="bi bi-heart" style={{ fontSize: "40px", color: "#007bff" }}></i>
                         <h3 className="fw-bold mt-3" style={{ color: "#333" }}>Compromiso</h3>
                         <p className="lead" style={{ color: "#555" }}>Nos dedicamos a brindar oportunidades a quienes realmente lo necesitan.</p>
                     </div>
                 </div>
                 <div className="col-md-4">
-                    <div className="card border-0 shadow-sm p-4 text-center">
+                    <div className="card border-0 shadow-sm p-4 text-center" style={{backgroundColor: "#f5f5f5"}}>
                         <i className="bi bi-shield-check" style={{ fontSize: "40px", color: "#007bff" }}></i>
                         <h3 className="fw-bold mt-3" style={{ color: "#333" }}>Transparencia</h3>
                         <p className="lead" style={{ color: "#555" }}>Valoramos la transparencia en nuestras acciones y decisiones.</p>
