@@ -113,7 +113,7 @@ const ActualizarVoluntario = () => {
           onClick={() => window.history.back()}
           title="Volver"
         >
-          <i className="bi bi-arrow-left"></i> {/* Asegúrate de tener Bootstrap Icons */}
+          <i className="bi bi-arrow-left"></i> 
         </button>
         <h2 className="mb-0 mx-auto text-center display-6" style={{paddingTop: "30px", paddingBottom: "25px"}}>Actualizar perfil</h2>
       </div>

@@ -60,57 +60,59 @@ const Postulaciones = () => {
     }
 
     return (
-        <div className="container mt-4">
+        <div>
             <Navbar />
-            <h2 className="text-center mb-4">Postulaciones</h2>
-            {postulaciones.length > 0 ? (
-                <div className="table-responsive">
-                    <table className="table table-bordered table-striped">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Correo</th>
-                                <th>Organización</th>
-                                <th>Nombre Actividad</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        {postulaciones.map((postulante) => (
-                            <tr key={postulante.id}>
-                                <td>{postulante.nombre} {postulante.apellido}</td>
-                                <td>{postulante.correo}</td>
-                                <td>{postulante.nombre_organizacion}</td>
-                                <td>{postulante.nombre_actividad}</td>
-                                <td>{postulante.estado}</td>
-                                <td>
-                                    <button 
-                                        className="btn btn-success me-2" 
-                                        onClick={() => handleDecision(postulante.id, 'aceptar', postulante.correo, postulante.nombre_actividad)} // Añadir correo aquí
-                                    >
-                                        Aceptar
-                                    </button>
-                                    <button 
-                                        className="btn btn-danger" 
-                                        onClick={() => handleDecision(postulante.id, 'rechazar', postulante.correo, postulante.nombre_actividad)} // Añadir correo aquí
-                                    >
-                                        Rechazar
-                                    </button>
-                                    <div className="card-footer text-center">
-                                        <Link to={`/voluntario/${postulante.voluntario_id}`} className="btn btn-primary">
-                                            Ver Detalles
-                                        </Link>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                </div>
-            ) : (
-                <p className="text-center">No hay postulaciones.</p>
-            )}
+            <div className="container mt-4">
+                <h2 className="text-center mb-4 display-6">Postulaciones</h2>
+                {postulaciones.length > 0 ? (
+                    <div className="table-responsive">
+                        <table className="table table-bordered table-striped">
+                            <thead className="thead-dark">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Correo</th>
+                                    <th>Organización</th>
+                                    <th>Nombre Actividad</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {postulaciones.map((postulante) => (
+                                <tr key={postulante.id}>
+                                    <td>{postulante.nombre} {postulante.apellido}</td>
+                                    <td>{postulante.correo}</td>
+                                    <td>{postulante.nombre_organizacion}</td>
+                                    <td>{postulante.nombre_actividad}</td>
+                                    <td>{postulante.estado}</td>
+                                    <td>
+                                        <button 
+                                            className="btn btn-success me-2" 
+                                            onClick={() => handleDecision(postulante.id, 'aceptar', postulante.correo, postulante.nombre_actividad)} // Añadir correo aquí
+                                        >
+                                            Aceptar
+                                        </button>
+                                        <button 
+                                            className="btn btn-danger" 
+                                            onClick={() => handleDecision(postulante.id, 'rechazar', postulante.correo, postulante.nombre_actividad)} // Añadir correo aquí
+                                        >
+                                            Rechazar
+                                        </button>
+                                        <div className="card-footer text-center">
+                                            <Link to={`/voluntario/${postulante.voluntario_id}`} className="btn btn-primary">
+                                                Ver Detalles
+                                            </Link>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
+                ) : (
+                    <p className="text-center fst-italic">No hay postulaciones.</p>
+                )}
+            </div>
         </div>
     );
 };

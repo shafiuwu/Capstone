@@ -64,7 +64,7 @@ const Navbar = () => {
                         <Link to="/" className="nav-link actives espacio fs-4 fw-light text-body-emphasis" aria-current="page">Inicio</Link>
                         <a className="nav-link actives espacio fs-4 fw-light text-body-emphasis" aria-current="page" href="/Nosotros">Nosotros</a>
                         <Link to="/actividades" className="nav-link espacio fs-4 fw-light text-body-emphasis">Voluntariados</Link>
-                        <button className="nav-link btn fs-5" onClick={toggleMenu} aria-label="Open menu">
+                        <button className="nav-link btn fs-5" onClick={toggleMenu} aria-label="Open menu" style={{paddingTop: "0px", paddingLeft: "0px", paddingRight: "20px"}}>
                             <span className="navbar-toggler-icon"></span>
                         </button>
                     </div>

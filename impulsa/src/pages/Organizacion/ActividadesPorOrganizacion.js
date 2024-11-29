@@ -57,50 +57,75 @@ const Actividades = () => {
     }
 
     return (
-        <div className="container mt-4">
-            <Navbar />
-            <h2 className="text-center mb-4">Actividades por Organización</h2>
-            {actividades.length > 0 ? (
-                <div className="table-responsive">
-                    <table className="table table-bordered table-striped">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th>Nombre de la Actividad</th>
-                                <th>Fecha Inicio</th>
-                                <th>Fecha Final</th>
-                                <th>Descripción</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {actividades.map((actividad) => (
-                                <tr key={actividad.id}>
-                                    <td>{actividad.nombre_actividad}</td>
-                                    <td>{actividad.fecha_inicio}</td>
-                                    <td>{actividad.fecha_fin}</td>
-                                    <td>{actividad.descripcion}</td>
-                                    <td>
-                                        <Link to={`/actividades/${actividad.id}`} className="btn btn-primary me-2">
-                                            Ver Detalles
-                                        </Link>
-                                        <td>
-                                        <button 
-                                            className="btn btn-success me-2" 
-                                            onClick={() => handleHabilitarDiploma(actividad.id, 'ACEPTADO')}
-                                        >
-                                            Habilitar Diploma
-                                        </button>
-                                        </td>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            ) : (
-                <p className="text-center">No hay actividades.</p>
-            )}
+        <div>
+      <Navbar />
+      <div className="container mt-4">
+        {/* Encabezado con el botón de regreso */}
+        <div className="d-flex align-items-center mb-4">
+        <button 
+          className="btn btn-outline-secondary me-3"
+          onClick={() => window.history.back()}
+          title="Volver"
+        >
+          <i className="bi bi-arrow-left"></i> 
+        </button>
+          <h2 className="display-6 mb-0 text-center w-100" style={{paddingBottom: "20px"}}>
+            Actividades por Organización
+          </h2>
         </div>
+
+        {actividades.length > 0 ? (
+          <div className="table-responsive">
+            <table className="table table-hover table-bordered align-middle">
+              <thead className="table-dark text-center">
+                <tr>
+                  <th>Nombre de la Actividad</th>
+                  <th>Fecha Inicio</th>
+                  <th>Fecha Final</th>
+                  <th>Descripción</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {actividades.map((actividad) => (
+                  <tr key={actividad.id}>
+                    <td>{actividad.nombre_actividad}</td>
+                    <td className="text-center">
+                      {new Date(actividad.fecha_inicio).toLocaleDateString()}
+                    </td>
+                    <td className="text-center">
+                      {new Date(actividad.fecha_fin).toLocaleDateString()}
+                    </td>
+                    <td className="text-wrap">{actividad.descripcion}</td>
+                    <td className="text-center">
+                      <button
+                        className="btn btn-success btn-sm"
+                        onClick={() =>
+                          handleHabilitarDiploma(actividad.id, "ACEPTADO")
+                        }
+                        style={{ marginRight: "10px", marginBottom: "10px"}}
+                      >
+                        Habilitar Diploma
+                      </button>
+                      <Link
+                        to={`/actividades/${actividad.id}`}
+                        className="btn btn-primary btn-sm me-2"
+                      >
+                        Ver Detalles
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="text-center fst-italic mt-4">
+            No hay actividades disponibles.
+          </p>
+        )}
+      </div>
+    </div>
     );
 };
 
