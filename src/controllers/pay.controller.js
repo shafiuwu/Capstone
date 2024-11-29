@@ -30,7 +30,7 @@ const createOrder = async (req, res) => {
         const result = await preference.create({ body });
         
         // Verifica el resultado en la consola antes de enviarlo al cliente
-        console.log("Resultado de la creación de orden:", result.body);
+        console.log("Resultado de la creación de orden:", result.);
 
         // Envía la respuesta
         return res.status(200).json(result);
@@ -40,24 +40,40 @@ const createOrder = async (req, res) => {
     }
 };
 
-const receiveWebhook = async (req, res) => {
-    const payment = req.query
+async function handlePayment(req, res) {
+    const payment = req.query.payment;
 
-    try{
-        if (payment.type === "payment"){
+    try {
+        if (payment.type === "payment") {
             const data = await MercadoPagoConfig.payment.get(payment["data.id"]);
-            console.log(data)
+            console.log(data);
         }
         res.status(204).send();
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: error.message });
+    }
+}
 
-    }catch (error) {
-        console.log(error)
-        return res.sendStatus(500).json({error: error.message})
+async function receiveWebhook(req, res) {
+    const webhookEvent = req.query.payment;
 
+    try {
+        // Procesa el evento del webhook
+        console.log('Webhook received:', webhookEvent);
+
+        // Realiza las operaciones necesarias con los datos del webhook
+        // Por ejemplo, podrías guardar los datos en una base de datos o actualizar el estado de una orden
+
+        res.status(200).send('Webhook received successfully');
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: error.message });
     }
 }
 
 
 module.exports = { createOrder,
-    receiveWebhook,
+    handlePayment,
+    receiveWebhook
  };
