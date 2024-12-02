@@ -90,12 +90,15 @@ const sendMessage = async (message) => {
                 className="chatbot-button"
                 onClick={toggleChatbot}
             >
-                <img src='images/mono.png' alt="Chat" className="chat-icon" />
+                <img src="images/mono.png" alt="Chat" className="chat-icon" />
             </button>
 
             {isOpen && (
                 <div className="chatbot-window" ref={chatbotRef}>
-                    <h4>¿Cómo puedo ayudarte?</h4>
+                    <div className="chatbot-header">
+                        <h5>¿Necesitas ayuda?🤖</h5>
+                        <button className="close-button" onClick={toggleChatbot}>✖</button>
+                    </div>
                     <div className="messages">
                         {messages.map((msg, index) => (
                             <div key={index} className={`message ${msg.sender}`}>
@@ -103,16 +106,19 @@ const sendMessage = async (message) => {
                             </div>
                         ))}
                     </div>
-                    <input 
-                        type="text" 
-                        value={inputMessage} 
-                        onChange={handleInputChange} 
-                        placeholder="Escribe tu mensaje..." 
-                    />
-                    <button onClick={handleSend}>Enviar</button>
+                    <div className="chatbot-footer">
+                        <input 
+                            type="text" 
+                            value={inputMessage} 
+                            onChange={handleInputChange} 
+                            placeholder="Escribe tu mensaje..." 
+                        />
+                        <button onClick={handleSend} className="send-button">Enviar</button>
+                    </div>
                 </div>
             )}
         </div>
+
     );
 };
 

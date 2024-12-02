@@ -61,7 +61,7 @@ const Actividades = () => {
       <Navbar />
       <div className="container mt-4">
         {/* Encabezado con el botón de regreso */}
-        <div className="d-flex align-items-center mb-4">
+
         <button 
           className="btn btn-outline-secondary me-3"
           onClick={() => window.history.back()}
@@ -72,10 +72,9 @@ const Actividades = () => {
           <h2 className="display-6 mb-0 text-center w-100" style={{paddingBottom: "20px"}}>
             Actividades por Organización
           </h2>
-        </div>
 
         {actividades.length > 0 ? (
-          <div className="table-responsive">
+          <div className="table-responsive" style={{paddingTop: "20px"}}>
             <table className="table table-hover table-bordered align-middle">
               <thead className="table-dark text-center">
                 <tr>

@@ -9,13 +9,13 @@ const Footer = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col">
-                            <p className="fw-bold" style={{ textAlign: "center", color: "black", fontSize: "25px" }}>
+                            <p className="display-6" style={{ textAlign: "center", color: "black", fontSize: "25px", fontWeight: "initial"}}>
                             Contacto
                             <br />
-                            <p className="link-dark fw-normal" style={{ fontSize: "20px", paddingTop: "20px"}}>
+                            <p className="link-dark display-6" style={{ fontSize: "20px", paddingTop: "20px"}}>
                                 9 8452 4856
                             </p>
-                            <a className="link-dark fw-normal" style={{ fontSize: "20px"}}>          
+                            <a className="link-dark display-6" style={{ fontSize: "20px"}}>          
                                 teamimpulsa02@gmail.com
                             </a>
                             </p>
@@ -26,7 +26,7 @@ const Footer = () => {
                             </a>
                         </div>
                         <div className="col">
-                            <p className="fw-bold" style={{ textAlign: "center", color: "black", fontSize: "25px"}}>
+                            <p className="display-6" style={{ textAlign: "center", color: "black", fontSize: "25px", fontWeight: "initial"}}>
                             Nuestras redes
                             <br />
                             <br />

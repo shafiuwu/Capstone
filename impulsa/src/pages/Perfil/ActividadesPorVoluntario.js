@@ -77,6 +77,9 @@ const Actividades = () => {
         <div>
             <Navbar />
             <div className="container mt-4">
+                <button className="btn btn-outline-secondary me-3" onClick={() => window.history.back()} title="Volver">
+                    <i className="bi bi-arrow-left"></i> 
+                </button>
                 <div className="text-center mb-4">
                     <h2 className="display-6" style={{paddingBottom: "20px"}}>Actividades por Organización</h2>
                     <p className="text-muted fst-italic" style={{paddingBottom: "15px"}}>
@@ -100,8 +103,12 @@ const Actividades = () => {
                         {actividades.map((inscripcion) => (
                             <tr key={inscripcion.id} className="text-center">
                             <td>{inscripcion.nombre_actividad}</td>
-                            <td>{inscripcion.fecha_inicio}</td>
-                            <td>{inscripcion.fecha_fin}</td>
+                            <td className="text-center">
+                                {new Date(inscripcion.fecha_inicio).toLocaleDateString()}
+                            </td>
+                            <td className="text-center">
+                                {new Date(inscripcion.fecha_fin).toLocaleDateString()}
+                            </td>
                             <td className="text-wrap" style={{ maxWidth: "300px" }}>
                                 {inscripcion.descripcion}
                             </td>
