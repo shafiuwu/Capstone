@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
+import './Perfil.css';
 
 const PerfilVoluntario = () => {
   const [perfil, setPerfil] = useState(null);
@@ -70,54 +71,88 @@ const PerfilVoluntario = () => {
   };
 
   return (
-      <div>
-        <Navbar />
-        <div className="container-fluid mt-5">
-          <div className="row g-4">
-            {/* Imagen de perfil en una columna */}
-            <div className="col-md-3 d-flex justify-content-center align-items-center">
-              <img 
-                src={imageUrl} 
-                alt="Foto de perfil" 
-                className="img-fluid rounded-circle border border-3 border-primary" 
-                style={{ width: "210px", height: "210px", objectFit: "cover" }}
-              />
-            </div>
-
-            {/* Información de perfil en una columna más amplia */}
-            <div className="col-md-9">
-              <div className="px-4">
-                <h1 className="display-5 mb-3">Bienvenido, {capitalizarPrimeraLetra(perfil.nombre)}</h1>
-                <ul className="list-group list-group-flush">
-                  <li className="list-group-item"><strong>Nombre:</strong> {capitalizarPrimeraLetra(perfil.nombre)}</li>
-                  <li className="list-group-item"><strong>Apellido:</strong> {capitalizarPrimeraLetra(perfil.apellido)}</li>
-                  <li className="list-group-item"><strong>Correo:</strong> {perfil.correo}</li>
-                  <li className="list-group-item"><strong>Teléfono:</strong> {perfil.telefono}</li>
-                  <li className="list-group-item"><strong>Fecha de Nacimiento:</strong> {formatearFecha(perfil.fecha_nacimiento)}</li>
-                  <li className="list-group-item"><strong>Dirección:</strong> {capitalizarPrimeraLetra(perfil.direccion)}</li>
-                  <li className="list-group-item"><strong>Habilidades:</strong> {capitalizarPrimeraLetra(perfil.habilidades)}</li>
-                  <li className="list-group-item"><strong>Preferencia de voluntariado:</strong> {capitalizarPrimeraLetra(perfil.tipo)}</li>
-                  <li className="list-group-item">
-                    <strong>Estado:</strong> 
-                    <span className={`badge ${perfil.estado ? "bg-success" : "bg-secondary"} ms-2`}>
-                      {perfil.estado ? "Activo" : "Inactivo"}
-                    </span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Botones de acción en la parte inferior, con un espacio centralizado */}
-          <div className="d-flex justify-content-center mt-4 px-4" style={{marginBottom: "50px"}}>
-            <button className="btn btn-outline-primary me-2" onClick={irActualizarVoluntario}>Actualizar Información</button>
-            <button className="btn btn-outline-primary me-2" onClick={irVerPostulaciones}>Mis Postulaciones</button>
-            {rolId === 2 && (
-              <button className="btn btn-outline-primary" onClick={irVerReportes}>Ver Reportes</button>
-            )}
+    <div>
+    <Navbar />
+    <div className="container mt-5 p-4 rounded shadow profile-container" style={{marginBottom: "100px"}}>
+      <div className="row align-items-center">
+        {/* Imagen de perfil */}
+        <div className="col-md-4 d-flex justify-content-center">
+          <img
+            src={imageUrl}
+            alt="Foto de perfil"
+            className="img-fluid rounded-circle shadow-lg profile-picture"
+          />
+        </div>
+  
+        {/* Información del perfil */}
+        <div className="col-md-8">
+          <div className="profile-details">
+            <h1 className="display-5 mb-4">
+              Bienvenido, {capitalizarPrimeraLetra(perfil.nombre)}
+            </h1>
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">
+                <strong>Nombre:</strong> {capitalizarPrimeraLetra(perfil.nombre)}
+              </li>
+              <li className="list-group-item">
+                <strong>Apellido:</strong> {capitalizarPrimeraLetra(perfil.apellido)}
+              </li>
+              <li className="list-group-item">
+                <strong>Correo:</strong> {perfil.correo}
+              </li>
+              <li className="list-group-item">
+                <strong>Teléfono:</strong> {perfil.telefono}
+              </li>
+              <li className="list-group-item">
+                <strong>Fecha de Nacimiento:</strong> {formatearFecha(perfil.fecha_nacimiento)}
+              </li>
+              <li className="list-group-item">
+                <strong>Dirección:</strong> {capitalizarPrimeraLetra(perfil.direccion)}
+              </li>
+              <li className="list-group-item">
+                <strong>Habilidades:</strong> {capitalizarPrimeraLetra(perfil.habilidades)}
+              </li>
+              <li className="list-group-item">
+                <strong>Preferencia de voluntariado:</strong> {capitalizarPrimeraLetra(perfil.tipo)}
+              </li>
+              <li className="list-group-item">
+                <strong>Estado:</strong>
+                <span
+                  className={`badge ms-2 ${
+                    perfil.estado ? "bg-success" : "bg-secondary"
+                  }`}
+                >
+                  {perfil.estado ? "Activo" : "Inactivo"}
+                </span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
+  
+      {/* Botones de acción */}
+      <div className="d-flex justify-content-center mt-4">
+        <button
+          className="btn btn-perfil me-2 shadow-sm"
+          onClick={irActualizarVoluntario}
+        >
+          Actualizar Información
+        </button>
+        <button
+          className="btn btn-perfil me-2 shadow-sm"
+          onClick={irVerPostulaciones}
+        >
+          Mis Postulaciones
+        </button>
+        {rolId === 2 && (
+          <button className="btn btn-perfil shadow-sm" onClick={irVerReportes}>
+            Ver Reportes
+          </button>
+        )}
+      </div>
+    </div>
+  </div>
+  
 
   );
 };

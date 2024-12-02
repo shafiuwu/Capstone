@@ -1,0 +1,54 @@
+.profile-container {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .profile-picture {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 1px solid #000000;
+  }
+  
+  .profile-details {
+    padding: 20px;
+  }
+  
+  .profile-details h1 {
+    font-weight: bold;
+  }
+  
+  .list-group-item {
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+  }
+  
+  .list-group-item strong {
+    color: #222425;
+  }
+  
+  .badge {
+    font-size: 14px;
+    padding: 5px 10px;
+  }
+  
+  .btn-perfil {
+    background-color: black;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    color: white;
+  }
+  
+  .btn-perfil:hover {
+    background-color: #212222;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .shadow-lg {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+  

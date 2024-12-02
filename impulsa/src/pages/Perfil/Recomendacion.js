@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Navbar from '../../components/Navbar';
 
 const Recomendacion = () => {
   const location = useLocation();
@@ -50,8 +51,9 @@ const Recomendacion = () => {
   
   return (
     <div>
+      <Navbar />
       <div className="container mt-5 mb-5">
-        <h2 className="display-5 text-center" style={{ marginBottom: "40px" }}>
+        <h2 className="display-6 text-center" style={{ marginBottom: "40px" }}>
           Tu Recomendación de Voluntariado
         </h2>
         <div className="card" style={{ borderRadius: "1rem", maxWidth: "800px", margin: "0 auto" }}>

@@ -63,6 +63,9 @@ const Postulaciones = () => {
         <div>
             <Navbar />
             <div className="container mt-4">
+                <button className="btn btn-outline-secondary me-3" onClick={() => window.history.back()} title="Volver">
+                    <i className="bi bi-arrow-left"></i>
+                </button>
                 <h2 className="text-center mb-4 display-6">Postulaciones</h2>
                 {postulaciones.length > 0 ? (
                     <div className="table-responsive">
